@@ -1,6 +1,6 @@
 export default class Profile {
-    constructor(firstName, lastName) {
-        this.id = null;
+    constructor(firstName, lastName, id) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.civilState = "";

@@ -11,6 +11,8 @@ export default class Register extends Component {
         super(props);
 
         this.auth = Firebase.getInstance().auth;
+        this.db = Firebase.getInstance().db;
+        
         this.state = {
             firstName: "",
             lastName: "",
@@ -43,11 +45,17 @@ export default class Register extends Component {
         })
     }
 
-    async createUser() {
+    async createUserAndProfile() {
         try {
             const userCredential = await this.auth.createUserWithEmailAndPassword(this.state.email, this.state.password);
-            const user = new Profile(this.state.id, this.state.firstName, this.state.lastName);
-            user.id = userCredential.user.uid;
+            const profile = new Profile(this.state.firstName, this.state.lastName);
+            profile.id = userCredential.user.uid;
+
+            await this.db.collection("profiles").add({
+                id: profile.id,
+                firstName: profile.firstName,
+                lastName: profile.lastName
+            });
         } catch(err) {
             console.log(err);
         }
@@ -87,7 +95,7 @@ export default class Register extends Component {
                                     <input type="password" className="form-control"/>
                                 </div>
                                 <div className="text-center">
-                                    <button type="button" onClick={() => this.createUser()} className="btn btn-primary sharp">Submit</button>
+                                    <button type="button" onClick={() => this.createUserAndProfile()} className="btn btn-primary sharp">Submit</button>
                                 </div>
                             </form>
                         </div>
