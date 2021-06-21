@@ -12,6 +12,7 @@ export default class Register extends Component {
 
         this.auth = Firebase.getInstance().auth;
         this.db = Firebase.getInstance().db;
+        this.storage = Firebase.getInstance().storage;
         
         this.state = {
             firstName: "",
@@ -48,13 +49,15 @@ export default class Register extends Component {
     async createUserAndProfile() {
         try {
             const userCredential = await this.auth.createUserWithEmailAndPassword(this.state.email, this.state.password);
-            const profile = new Profile(this.state.firstName, this.state.lastName);
+            const picUrl = await this.storage.ref().child("images/default_profile_pic.jpg").getDownloadURL();
+            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl);
             profile.id = userCredential.user.uid;
 
             await this.db.collection("profiles").add({
                 id: profile.id,
                 firstName: profile.firstName,
-                lastName: profile.lastName
+                lastName: profile.lastName,
+                picture: profile.picture
             });
         } catch(err) {
             console.log(err);

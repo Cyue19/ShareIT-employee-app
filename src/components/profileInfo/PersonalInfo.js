@@ -5,7 +5,7 @@ export default class PersonalInfo extends Component {
         const { profile } = this.props;
 
         return (
-            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
+            <div className="form-card" style={{backgroundColor: "white", width:"100%"}}>
                 <h3 className="info-header mx-4">IDENTITY</h3>
                 <div className="mx-4 mb-3">
                     <p>Full name: {profile.firstName} {profile.lastName}</p>

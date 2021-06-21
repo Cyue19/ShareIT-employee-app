@@ -13,3 +13,10 @@
     background-image: linear-gradient(to bottom, #7fcec5 0%, #14557b 74%);
     top: 30px;
 }
+
+.profile-picture {
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
+    border-radius: 50%;
+}

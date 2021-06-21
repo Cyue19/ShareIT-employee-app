@@ -14,6 +14,7 @@ export default class ProfilePage extends Component {
         super(props);
         this.urlId = this.props.match.params.id;
         this.db = Firebase.getInstance().db;
+        this.storage = Firebase.getInstance().storage;
 
         this.state = {
             tab: 1,
@@ -35,7 +36,7 @@ export default class ProfilePage extends Component {
         try {
             const snapShot = await this.db.collection("profiles").where("id", "==", id).get();
             const doc = snapShot.docs[0];
-            const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().id);
+            const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().id);
             return profile;
         } catch(err) {
             console.log(err);
@@ -72,52 +73,55 @@ export default class ProfilePage extends Component {
 
     render() {
         const { user } = this.props;
-        console.log(this.props.user);
+        const { tab, profile, loading } = this.state;
 
         return (
             <div className="pb-3">
-                <div className="stripe"></div>
-                
-                <div className="mb-3" style={{width: "90%"}}>
-                    <div className="row">
-                        <div className="col-1 text-center">Picture</div>
-                        <div className="col">
-                            <h1>Name</h1>
-                            <h2>Position</h2>
-                        </div>
-                    </div>
-
-                    {
-                        user.uid === this.urlId ?
-                            <button type="button" className="btn btn-primary">Edit</button>
-                            :
-                            <div></div>
-                    }
-                </div>
-
-                <div style={{width: "90%", margin: "auto"}}>
-                    <ul className="nav nav-tabs">
-                        <li onClick={() => this.changeTab(1)} className="nav-item">
-                            <p className="nav-link active">Personal Info</p>
-                        </li>
-                        <li onClick={() => this.changeTab(2)} className="nav-item">
-                            <p className="nav-link">Professional Info</p>
-                        </li>
-                        <li onClick={() => this.changeTab(3)} className="nav-item">
-                            <p className="nav-link">Days Off</p>
-                        </li>
-                        <li onClick={() => this.changeTab(4)} className="nav-item">
-                            <p className="nav-link">Account</p>
-                        </li>
-                    </ul>
-
-                    {
-                    this.state.loading ?
+                { loading ?
                     <div></div>
                     :
-                    this.getTab()
-                    }
-                </div>
+                    <div>
+                        <div className="stripe"></div>
+                
+                        <div className="mb-3" style={{width: "90%"}}>
+                            <div className="row">
+                                <div className="col-2 text-center">
+                                    <img className="profile-picture" src={profile.picture} alt="choose"></img>
+                                </div>
+                                <div className="col-2">
+                                    <h1 className="unbold">{profile.firstName} {profile.lastName}</h1>
+                                    <h2 className="unbold">Position</h2>
+                                </div>
+                            </div>
+
+                            {
+                                user.uid === this.urlId ?
+                                    <button type="button" className="btn btn-primary">Edit</button>
+                                    :
+                                    <div></div>
+                            }
+                        </div>
+
+                        <div style={{width: "80%", margin: "auto"}}>
+                            <ul className="nav nav-tabs">
+                                <li onClick={() => this.changeTab(1)} className="nav-item">
+                                    <p className={tab===1 ? "nav-link active" : "nav-link"}>Personal Info</p>
+                                </li>
+                                <li onClick={() => this.changeTab(2)} className="nav-item">
+                                    <p className={tab===2 ? "nav-link active" : "nav-link"}>Professional Info</p>
+                                </li>
+                                <li onClick={() => this.changeTab(3)} className="nav-item">
+                                    <p className={tab===3 ? "nav-link active" : "nav-link"}>Days Off</p>
+                                </li>
+                                <li onClick={() => this.changeTab(4)} className="nav-item">
+                                    <p className={tab===4 ? "nav-link active" : "nav-link"}>Account</p>
+                                </li>
+                            </ul>
+
+                            {this.getTab()}
+                        </div>
+                    </div>
+                }
             </div>
         )
     }

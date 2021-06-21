@@ -8,6 +8,7 @@ import Firestore from "./firebase/Firebase";
 
 import Register from "./components/Register";
 import ProfilePage from "./components/ProfilePage";
+import ProfileEditModal from "./components/profileInfo/ProfileEditModal";
 
 import PropsRoute from './components/PropsRoute';
 import Login from './components/Login';
@@ -51,6 +52,7 @@ class App extends Component {
           :
           <BrowserRouter>
             <Route path="/register" exact component={Register}/>
+            <Route path="/edit" component={ProfileEditModal}></Route>
             <PropsRoute path="/profile/:id" user={this.state.user} exact component={ProfilePage}/>
             <PropsRoute path='/login' exact component={Login}/>
             <PropsRoute path='/forgot' exact component={ForgotPassword}/>
