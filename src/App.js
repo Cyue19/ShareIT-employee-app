@@ -1,29 +1,74 @@
 import { Component } from 'react';
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
 import Register from "./components/Register";
-import Account from "./components/Account";
 
-import PropsRoute from './components/PropsRoute';
+
 import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
-import EmailSent from './components/EmailSent';
-
+import Home from './components/Home';
+import GuardedRouteUser from './components/GuardedRouteUser';
+import GuardedRouteNonUser from './components/GuardedRouteNonUser';
+import Firebase from './firebase/Firebase';
+import Main from './components/Main';
+import ProfilePage from './components/ProfilePage';
+import Navbar from './components/Navbar';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null, 
+      loading: true
+    };
+    this.db = Firebase.instance().db;
+    this.auth = Firebase.instance().auth;
+  }
+
+  componentDidMount() {
+    this.subscribeToUserState();
+    this.fetchTask();
+    console.log(this.state.user);
+  }
+
+  subscribeToUserState() {
+    this.auth.onAuthStateChanged((user) => {
+      this.setState({ user, loading: false });
+    });
+  };
+
+  async fetchTask() {
+    try {
+      await this.db.collection('profiles').get();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   render() {
+    const { user, loading } = this.state; 
     return (
-      <BrowserRouter>
-        <Route path="/register" exact component={Register}/>
-        <Route path="/myaccount" exact component={Account}/>
-        <PropsRoute path='/login' exact component={Login}/>
-        <PropsRoute path='/forgot' exact component={ForgotPassword}/>
-        <PropsRoute path='/confirm' exact component={EmailSent}/>
-      </BrowserRouter>
-    )
+      <div>
+        {
+          loading ? 
+            <div>Loading</div>
+          :
+          <BrowserRouter>
+            <Navbar user={user}/>
+            <GuardedRouteNonUser path='/login' exact component={Login} user={user}/>
+            <GuardedRouteNonUser path="/register" exact component={Register} user={user}/>
+            <GuardedRouteNonUser path="/" exact component={Home} user={user}/>
+            <GuardedRouteNonUser path='/forgot' exact component={ForgotPassword} user={user}/>
+            <GuardedRouteUser path='/main' exact component={Main} user={user}/> 
+            <GuardedRouteUser path="/profile/:userId" exact component={ProfilePage} user={user}/>
+          </BrowserRouter>
+        }
+      </div>
+      
+    );
   }
 }
 
