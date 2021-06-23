@@ -99,12 +99,12 @@ export default class PersonalInfo extends Component {
 
 
     render() {
-        const { profile } = this.props;
+        const { profile, permissions } = this.props;
 
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative", boxShadowTop: "none"}}>
 
-                <ShowIf isTrue={this.props.self}>
+                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: ".5%"}} data-bs-toggle="modal" data-bs-target="#personalInfoModal">
                     Edit
                     </button>
@@ -135,7 +135,7 @@ export default class PersonalInfo extends Component {
                     <p>Relationship: {profile.contact.relationship}</p>
                 </div>
 
-                <ShowIf isTrue={this.props.self}>
+                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="admin"}>
                 <h3 className="info-header mx-4">IDENTIFICATION</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>

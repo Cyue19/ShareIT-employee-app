@@ -8,6 +8,8 @@ import Account from "./profileInfo/Account";
 import Profile from "../models/Profile";
 import ProfileBar from "./profileInfo/ProfileBar";
 
+import LoadSpinner from "./LoadSpinner";
+
 import Firebase from "../firebase/Firebase";
 
 export default class ProfilePage extends Component {
@@ -22,6 +24,7 @@ export default class ProfilePage extends Component {
             profile: null,
             loading: true,
             docId: null,
+            permissions: null
         }
     }
 
@@ -30,7 +33,7 @@ export default class ProfilePage extends Component {
         try {
             const snapShot = await this.db.collection("profiles").where("userId", "==", this.urlId).get();
             const doc = snapShot.docs[0];
-            const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().id);
+            const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().id, doc.data().permissions);
             profile.maritalStatus = doc.data().maritalStatus;
             profile.nationality = doc.data().nationality;
             profile.personalEmail = doc.data().personalEmail;
@@ -48,15 +51,24 @@ export default class ProfilePage extends Component {
             profile.bank = doc.data().bank;
             profile.iban = doc.data().iban;
             profile.swift = doc.data().swift;
+
+            const permissions = await this.fetchUserPermissions();
             
             this.setState({
                 profile,
                 docId: doc.id,
-                loading: false
+                loading: false,
+                permissions
             });
         } catch(err) {
             console.log(err);
         }
+    }
+
+    async fetchUserPermissions() {
+        const snapShot = await this.db.collection("profiles").where("userId", "==", this.props.user.uid).get();
+        const doc = snapShot.docs[0];
+        return doc.data().permissions;
     }
 
     async updateProfile(profile) {
@@ -93,13 +105,13 @@ export default class ProfilePage extends Component {
 
     /**Display/return the correct profile card info tab */
     getTab() {
-        const { tab, profile } = this.state;
+        const { tab, profile, permissions } = this.state;
         const { user } = this.props;
         const self = (user.uid===this.urlId);
 
         switch (tab) {
             case 1:
-                return(<PersonalInfo update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
+                return(<PersonalInfo update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
             case 2:
                 return(<ProfessionalInfo update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             case 3:
@@ -127,24 +139,8 @@ export default class ProfilePage extends Component {
 
         return (
             <div className="pb-3" style={{position: "relative"}}>
-                { loading ?
-                    <div>Loading</div>
-                    :
-                    <div>
-                        {/* <div className="stripe"></div>
-                
-                        <div className="mb-3" style={{width: "90%"}}>
-                            <div className="row">
-                                <div className="col-2 text-center">
-                                    <img className="profile-picture" src={profile.picture} alt="choose"></img>
-                                </div>
-                                <div className="col-2">
-                                    <h1 className="unbold">{profile.firstName} {profile.lastName}</h1>
-                                    <h2 className="unbold">{profile.job}</h2>
-                                </div>
-                            </div>
-                        </div> */}
 
+                    <LoadSpinner loading={loading}>
                         <ProfileBar self={user.uid===this.urlId} profile={profile}/>   
 
                         <div style={{width: "90%", margin: "auto", position: "relative"}}>
@@ -167,8 +163,7 @@ export default class ProfilePage extends Component {
                                 {this.getTab()}
                             </div>
                         </div>
-                    </div>
-                }
+                    </LoadSpinner>
             </div>
         )
     }

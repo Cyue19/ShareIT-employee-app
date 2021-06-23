@@ -49,7 +49,7 @@ class App extends Component {
       <div>
         {
           loading ? 
-            <div>Loading</div>
+            <div></div>
           :
           <BrowserRouter>
             <Navbar user={user}/>

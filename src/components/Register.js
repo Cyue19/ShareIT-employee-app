@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Firebase from "../firebase/Firebase";
 import Profile from "../models/Profile";
 import ShowIf from "./ShowIf";
+import LoadButton from "./LoadButton";
 
 import "./Register.css";
 
@@ -22,7 +23,8 @@ export default class Register extends Component {
             email: "",
             password: "",
             confirmPassword: "",
-            error: ""
+            error: "",
+            btnLoading: false
         }
     }
 
@@ -59,14 +61,20 @@ export default class Register extends Component {
     async createUserAndProfile() {
         const {firstName, lastName, password, confirmPassword } = this.state;
 
+        this.setState({
+            btnLoading: true
+        });
+
         if (!firstName || !lastName || !confirmPassword) {
             this.setState({
-                error: "Please complete all fields"
+                error: "Please complete all fields",
+                btnLoading: false
             });
             return;
         } else if (password !== confirmPassword) {
             this.setState({
-                error: "Passwords do not match"
+                error: "Passwords do not match",
+                btnLoading: false
             });
             return;
         }
@@ -74,7 +82,7 @@ export default class Register extends Component {
         try {
             const userCredential = await this.auth.createUserWithEmailAndPassword(this.state.email, this.state.password);
             const picUrl = await this.storage.ref().child("images/default_profile_pic.jpg").getDownloadURL();
-            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl);
+            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl, null, "employee");
             profile.userId = userCredential.user.uid;
 
             await this.db.collection("profiles").add({
@@ -82,17 +90,20 @@ export default class Register extends Component {
                 firstName: profile.firstName,
                 lastName: profile.lastName,
                 picture: profile.picture,
-                contact: profile.contact
+                contact: profile.contact,
+                permissions: profile.permissions
             });
 
             this.setState({
-                error: ""
+                error: "",
+                btnLoading: false
             })
 
             this.props.history.push("/profile/" + profile.userId);
         } catch(err) {
             this.setState({
-                error: err.message
+                error: err.message,
+                btnLoading: false
             });
         }
     }
@@ -123,7 +134,7 @@ export default class Register extends Component {
     // }
 
     render() {
-        const {error} = this.state;
+        const {error, btnLoading} = this.state;
         return (
             <div className="form-signin" style={{background: "linear-gradient(to left, #3c817a, #19033d)", display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                 <div className="container mt-5 mb-5" style={{width: '484px', background: 'white', borderRadius: '20px'}}>
@@ -163,7 +174,7 @@ export default class Register extends Component {
                                     </div>
                                 </ShowIf>
                                 <div className="text-center">
-                                    <button type="button" onClick={() => this.createUserAndProfile()} className="btn btn-primary sharp">Submit</button>
+                                    <LoadButton btnLoading={btnLoading} type="button" onClick={() => this.createUserAndProfile()} className="btn btn-primary sharp">Submit</LoadButton>
                                 </div>
                             </form>
                         </div>
