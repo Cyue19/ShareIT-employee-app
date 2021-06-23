@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 
 export default class Account extends Component {
+
+    saveChanges() {
+        this.props.update(this.props.profile);
+        this.setState({});
+    }
+    
     render() {
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%"}}>

@@ -19,47 +19,92 @@ export default class ProfilePage extends Component {
         this.state = {
             tab: 1,
             profile: null,
-            loading: true
+            loading: true,
+            docId: null,
         }
     }
 
+    /**Fetch profile with id from firebase */
     async componentDidMount() {
-        const profile = await this.fetchProfileFromFirebase(this.urlId);
-        this.setState({
-            profile,
-            loading: false
-        });
-    }
-
-    /**Fetch profile object w/ id from firebase */
-    async fetchProfileFromFirebase(id) {
         try {
-            const snapShot = await this.db.collection("profiles").where("id", "==", id).get();
+            const snapShot = await this.db.collection("profiles").where("userId", "==", this.urlId).get();
             const doc = snapShot.docs[0];
             const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().id);
-            return profile;
+            profile.maritalStatus = doc.data().maritalStatus;
+            profile.nationality = doc.data().nationality;
+            profile.personalEmail = doc.data().personalEmail;
+            profile.personalPhone = doc.data().personalPhone;
+            profile.address = doc.data().address;
+            profile.contact = doc.data().contact;
+            profile.idNum = doc.data().idNum;
+            profile.taxId = doc.data().taxId;
+            profile.ssn = doc.data().ssn;
+            profile.licenseNum = doc.data().licenseNum;
+            profile.carPlateNum = doc.data().carPlateNum;
+            profile.dependents = doc.data().dependents;
+            profile.handicap = doc.data().handicap;
+            profile.payee = doc.data().payee;
+            profile.bank = doc.data().bank;
+            profile.iban = doc.data().iban;
+            profile.swift = doc.data().swift;
+            
+            this.setState({
+                profile,
+                docId: doc.id,
+                loading: false
+            })
         } catch(err) {
             console.log(err);
         }
     }
 
-    async updateProfile() {
-
+    async updateProfile(profile) {
+        try {
+            await this.db.collection("profiles").doc(this.state.docId).update({
+                firstName: profile.firstName,
+                lastName: profile.lastName,
+                picture: profile.picture,
+                maritalStatus: profile.maritalStatus,
+                nationality: profile.nationality,
+                personalEmail: profile.personalEmail,
+                personalPhone: profile.personalPhone,
+                address: profile.address,
+                contact: profile.contact,
+                idNum: profile.idNum,
+                taxId: profile.taxId,
+                ssn: profile.ssn,
+                licenseNum: profile.licenseNum,
+                carPlateNum: profile.carPlateNum,
+                dependents: profile.dependents,
+                handicap: profile.handicap,
+                payee: profile.payee,
+                bank: profile.bank,
+                iban: profile.iban,
+                swift: profile.swift
+            });
+            this.setState({
+                profile
+            });
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     /**Display/return the correct profile card info tab */
     getTab() {
         const { tab, profile } = this.state;
+        const { user } = this.props;
+        const self = user.uid===this.urlId;
 
         switch (tab) {
             case 1:
-                return(<PersonalInfo profile={profile}/>);
+                return(<PersonalInfo update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             case 2:
-                return(<ProfessionalInfo profile={profile}/>);
+                return(<ProfessionalInfo update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             case 3:
-                return(<Absences profile={profile}/>);
+                return(<Absences update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             case 4:
-                return(<Account profile={profile}/>)
+                return(<Account update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             default: 
                 break;
         }
@@ -68,11 +113,10 @@ export default class ProfilePage extends Component {
     changeTab(tab) {
         this.setState({
             tab
-        })
+        });
     }
 
     render() {
-        const { user } = this.props;
         const { tab, profile, loading } = this.state;
 
         return (
@@ -90,16 +134,16 @@ export default class ProfilePage extends Component {
                                 </div>
                                 <div className="col-2">
                                     <h1 className="unbold">{profile.firstName} {profile.lastName}</h1>
-                                    <h2 className="unbold">Position</h2>
+                                    <h2 className="unbold">{profile.job}</h2>
                                 </div>
                             </div>
 
-                            {
+                            {/* {
                                 user.uid === this.urlId ?
                                     <button type="button" className="btn btn-primary">Edit</button>
                                     :
                                     <div></div>
-                            }
+                            } */}
                         </div>
 
                         <div style={{width: "80%", margin: "auto"}}>
@@ -111,7 +155,7 @@ export default class ProfilePage extends Component {
                                     <p className={tab===2 ? "nav-link active" : "nav-link"}>Professional Info</p>
                                 </li>
                                 <li onClick={() => this.changeTab(3)} className="nav-item">
-                                    <p className={tab===3 ? "nav-link active" : "nav-link"}>Days Off</p>
+                                    <p className={tab===3 ? "nav-link active" : "nav-link"}>Absences</p>
                                 </li>
                                 <li onClick={() => this.changeTab(4)} className="nav-item">
                                     <p className={tab===4 ? "nav-link active" : "nav-link"}>Account</p>

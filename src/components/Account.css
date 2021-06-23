@@ -15,8 +15,25 @@
 }
 
 .profile-picture {
-    height: 150px;
-    width: 150px;
+    height: 125px;
+    width: 125px;
     object-fit: contain;
     border-radius: 50%;
+}
+
+.profile-hr {
+    margin: 10px 0px;
+    padding: 0px;
+}
+
+.edit-button {
+    position: absolute;
+    top: 220px;
+    right: 225px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
