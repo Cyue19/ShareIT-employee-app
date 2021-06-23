@@ -54,12 +54,12 @@ export default class ProfessionalInfo extends Component {
 
 
     render() {
-        const { profile } = this.props;
+        const { profile, permissions } = this.props;
 
         return (
-            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
-                <ShowIf isTrue={this.props.self}>
-                    <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: ".5%"}} data-bs-toggle="modal" data-bs-target="#profInfoModal">
+            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative", boxShadowTop: "none"}}>
+                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                    <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#profInfoModal">
                     Edit
                     </button>
                 </ShowIf>
@@ -87,7 +87,7 @@ export default class ProfessionalInfo extends Component {
                     <p>Manager: {profile.manager}</p>
                 </div>
 
-                <ShowIf isTrue={this.props.self}>
+                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
                 <h3 className="info-header mx-4">SALARY CONDITIONS</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>

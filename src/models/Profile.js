@@ -24,7 +24,7 @@ export default class Profile {
         this.swift = "";
         this.courses = [];
         this.collabId = "";
-        this.labelsAndTags="";
+        this.labelsAndTags= "";
         this.workPhone = "";
         this.workEmail = "";
         this.holidays = [];
@@ -35,8 +35,10 @@ export default class Profile {
         this.mealAllowance = "";
         this.flexibleWorkHrs = "";
         this.comments = "";
-
-
+        this.absenceRequests = [];
+        this.accessEmail = "";
+        this.status = "";
+        this.language = "";
     }
 
     static fromFirebaseDoc(doc) {

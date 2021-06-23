@@ -14,10 +14,12 @@ export default class PersonalInfo extends Component {
 
     onMaritalStatusChanged(e) {
         this.props.profile.maritalStatus = e.target.value;
+        this.setState({});
     }
 
     onNationalityChanged(e) {
         this.props.profile.nationality = e.target.value;
+        this.setState({});
     }
 
     onPersonalEmailChanged(e) {
@@ -46,6 +48,7 @@ export default class PersonalInfo extends Component {
 
     onContactRelationshipChanged(e) {
         this.props.profile.contact.relationship = e.target.value;
+        this.setState({});
     }
 
     onIdNumChanged(e) {
@@ -104,8 +107,8 @@ export default class PersonalInfo extends Component {
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative", boxShadowTop: "none"}}>
 
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="admin"}>
-                    <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: ".5%"}} data-bs-toggle="modal" data-bs-target="#personalInfoModal">
+                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                    <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#personalInfoModal">
                     Edit
                     </button>
                 </ShowIf>
@@ -135,7 +138,7 @@ export default class PersonalInfo extends Component {
                     <p>Relationship: {profile.contact.relationship}</p>
                 </div>
 
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="admin"}>
+                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
                 <h3 className="info-header mx-4">IDENTIFICATION</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
@@ -177,7 +180,7 @@ export default class PersonalInfo extends Component {
                     </table>
                 </div>
 
-                <h3 className="info-header mx-5">BANK INFORMATION</h3>
+                <h3 className="info-header mx-4">BANK INFORMATION</h3>
                 <div className="mx-4 mb-4">
                     <hr className="profile-hr"/>
                     <p>Bank: {profile.bank}</p>
