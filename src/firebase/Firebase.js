@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
 
 import firebase from 'firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-export default class Firebase extends Component {
+class Firebase {
     //singleton
 
-    static instance;
-
-    static getInstance() {
-        if (!Firebase.instance) {
-            Firebase.instance = new Firebase();
+    static singleton;
+    static instance() {
+        if (!Firebase.singleton) { 
+            Firebase.singleton = new Firebase(); 
         }
-        return Firebase.instance;
+        return Firebase.singleton;
     }
 
-    constructor(props) {
-        super(props);
-
+    constructor() {
         //initialize firebase
         var firebaseConfig = {
             apiKey: "AIzaSyDUGccJMpPwaHiuDwskKhUJc-Q_UWWe4E8",
@@ -35,3 +31,5 @@ export default class Firebase extends Component {
         this.storage = this.firebase.storage();
     }
 }
+
+export default Firebase; 

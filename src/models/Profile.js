@@ -37,4 +37,13 @@ export default class Profile {
 
 
     }
+
+    static fromFirebaseDoc(doc) {
+      const profile = new Profile();
+      const data = doc.data();
+      profile.id = doc.id;
+      profile.firstName = data.firstName;
+      profile.lastName = data.lastName;
+      return profile; 
+    }
 }

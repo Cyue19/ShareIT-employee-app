@@ -6,15 +6,16 @@ import ProfessionalInfo from "./profileInfo/ProfessionalInfo";
 import Absences from "./profileInfo/Absences";
 import Account from "./profileInfo/Account";
 import Profile from "../models/Profile";
+import ProfileBar from "./profileInfo/ProfileBar";
 
 import Firebase from "../firebase/Firebase";
 
 export default class ProfilePage extends Component {
     constructor(props) {
         super(props);
-        this.urlId = this.props.match.params.id;
-        this.db = Firebase.getInstance().db;
-        this.storage = Firebase.getInstance().storage;
+        this.urlId = this.props.match.params.userId;
+        this.db = Firebase.instance().db;
+        this.storage = Firebase.instance().storage;
 
         this.state = {
             tab: 1,
@@ -52,7 +53,7 @@ export default class ProfilePage extends Component {
                 profile,
                 docId: doc.id,
                 loading: false
-            })
+            });
         } catch(err) {
             console.log(err);
         }
@@ -94,7 +95,7 @@ export default class ProfilePage extends Component {
     getTab() {
         const { tab, profile } = this.state;
         const { user } = this.props;
-        const self = user.uid===this.urlId;
+        const self = (user.uid===this.urlId);
 
         switch (tab) {
             case 1:
@@ -108,6 +109,10 @@ export default class ProfilePage extends Component {
             default: 
                 break;
         }
+
+        this.setState({
+            loading: false
+        })
     }
 
     changeTab(tab) {
@@ -118,14 +123,15 @@ export default class ProfilePage extends Component {
 
     render() {
         const { tab, profile, loading } = this.state;
+        const { user } = this.props;
 
         return (
-            <div className="pb-3">
+            <div className="pb-3" style={{position: "relative"}}>
                 { loading ?
-                    <div></div>
+                    <div>Loading</div>
                     :
                     <div>
-                        <div className="stripe"></div>
+                        {/* <div className="stripe"></div>
                 
                         <div className="mb-3" style={{width: "90%"}}>
                             <div className="row">
@@ -137,16 +143,11 @@ export default class ProfilePage extends Component {
                                     <h2 className="unbold">{profile.job}</h2>
                                 </div>
                             </div>
+                        </div> */}
 
-                            {/* {
-                                user.uid === this.urlId ?
-                                    <button type="button" className="btn btn-primary">Edit</button>
-                                    :
-                                    <div></div>
-                            } */}
-                        </div>
+                        <ProfileBar self={user.uid===this.urlId} profile={profile}/>   
 
-                        <div style={{width: "80%", margin: "auto"}}>
+                        <div style={{width: "90%", margin: "auto", position: "relative"}}>
                             <ul className="nav nav-tabs">
                                 <li onClick={() => this.changeTab(1)} className="nav-item">
                                     <p className={tab===1 ? "nav-link active" : "nav-link"}>Personal Info</p>
@@ -162,7 +163,9 @@ export default class ProfilePage extends Component {
                                 </li>
                             </ul>
 
-                            {this.getTab()}
+                            <div style={{position: "absolute", width: "100%", top: "50%", paddingBottom: "30px"}}>
+                                {this.getTab()}
+                            </div>
                         </div>
                     </div>
                 }

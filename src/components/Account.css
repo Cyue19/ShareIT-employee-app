@@ -1,17 +1,8 @@
 .info-header {
-    font-family: segoe ui;
+    font-family: times new roman;
     font-size: 18px;
     font-weight: normal;
     color: gray;
-}
-
-.stripe {
-    position: absolute;
-    z-index: -1;
-    height: 30%;
-    width: 100%;
-    background-image: linear-gradient(to bottom, #7fcec5 0%, #14557b 74%);
-    top: 30px;
 }
 
 .profile-picture {

@@ -102,7 +102,7 @@ export default class PersonalInfo extends Component {
         const { profile } = this.props;
 
         return (
-            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
+            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative", boxShadowTop: "none"}}>
 
                 <ShowIf isTrue={this.props.self}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: ".5%"}} data-bs-toggle="modal" data-bs-target="#personalInfoModal">
