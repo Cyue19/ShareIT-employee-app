@@ -56,7 +56,7 @@ export default class RequestAbsenceModal extends Component {
             return;
         }
 
-        const newRequest = {type: type, period: period, startDate: startDate, endDate: endDate, observations: observations}
+        const newRequest = {type: type, period: period, startDate: startDate, endDate: endDate, observations: observations, status: "pending"}
         profile.absenceRequests.push(newRequest);
 
         this.props.update(profile);
@@ -70,7 +70,7 @@ export default class RequestAbsenceModal extends Component {
             error: ""
         });
     }
-    
+
     render() {
         const {type, period, startDate, endDate, observations} = this.state;
 
@@ -113,20 +113,11 @@ export default class RequestAbsenceModal extends Component {
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Start date:</label>
-                                        <select value={startDate} onChange={(e) => this.onStartDateChanged(e)} className="form-select">
-                                            <option value="">Choose...</option>
-                                            <option value="Active">Active</option>
-                                            <option value="Inactive">Inactive</option>
-                                        </select>
+                                        <input onChange={(e) => this.onStartDateChanged(e)} type="date" defaultValue={startDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">End date:</label>
-                                        <select value={endDate} onChange={(e) => this.onEndDateChanged(e)} className="form-select">
-                                            <option value="">Choose...</option>
-                                            <option value="Employee">Employee</option>
-                                            <option value="HR">HR</option>
-                                            <option value="Admin">Admin</option>
-                                        </select>
+                                        <input onChange={(e) => this.onEndDateChanged(e)} type="date" defaultValue={endDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Observations:</label>
