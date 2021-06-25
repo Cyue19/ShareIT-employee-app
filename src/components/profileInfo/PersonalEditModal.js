@@ -97,6 +97,7 @@ export default class PersonalEditModal extends Component {
     saveChanges() {
         this.props.update(this.props.profile);
         this.setState({});
+
     }
     
     render() {
@@ -153,7 +154,9 @@ export default class PersonalEditModal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Personal phone:</label>
-                                        <input type="number" onChange={(e) => this.onPersonalPhoneChanged(e)} defaultValue={profile.personalPhone} className="form-control"/>
+                                        <input 
+                                            type="number" onChange={(e) => this.onPersonalPhoneChanged(e)} defaultValue={profile.personalPhone} className="form-control" 
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Address:</label>
@@ -171,7 +174,9 @@ export default class PersonalEditModal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Phone number:</label>
-                                        <input type="number" onChange={(e) => this.onContactPhoneChanged(e)} defaultValue={profile.contact.phone} className="form-control"/>
+                                        <input 
+                                            type="number" onChange={(e) => this.onContactPhoneChanged(e)} defaultValue={profile.contact.phone} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Relationship:</label>
@@ -188,19 +193,27 @@ export default class PersonalEditModal extends Component {
                                     <h2 className="info-header">Identification</h2>
                                     <div className="mb-3">
                                         <label className="form-label">ID number:</label>
-                                        <input onChange={(e) => this.onIdNumChanged(e)} type="number" defaultValue={profile.idNum} className="form-control"/>
+                                        <input 
+                                            onChange={(e) => this.onIdNumChanged(e)} type="number" defaultValue={profile.idNum} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Tax identification number:</label>
-                                        <input type="number" onChange={(e) => this.onTaxIdChanged(e)} defaultValue={profile.taxId} className="form-control"/>
+                                        <input 
+                                            type="number" onChange={(e) => this.onTaxIdChanged(e)} defaultValue={profile.taxId} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">SSN:</label>
-                                        <input type="number" onChange={(e) => this.onSSNChanged(e)} defaultValue={profile.ssn} className="form-control"/>
+                                        <input 
+                                            type="number" onChange={(e) => this.onSSNChanged(e)} defaultValue={profile.ssn} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Driving license number:</label>
-                                        <input type="number" onChange={(e) => this.onLicenseNumChanged(e)} defaultValue={profile.licenseNum} className="form-control"/>
+                                        <input 
+                                            type="number" onChange={(e) => this.onLicenseNumChanged(e)} defaultValue={profile.licenseNum} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Car number plate:</label>
@@ -210,7 +223,9 @@ export default class PersonalEditModal extends Component {
                                     <h2 className="info-header">Tax Information</h2>
                                     <div className="mb-3">
                                         <label className="form-label">Dependents:</label>
-                                        <input type="number" onChange={(e) => this.onDependentsChanged(e)} defaultValue={profile.dependents} className="form-control"/>
+                                        <input 
+                                            type="number" onChange={(e) => this.onDependentsChanged(e)} defaultValue={profile.dependents} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Handicap:</label>

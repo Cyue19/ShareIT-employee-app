@@ -71,7 +71,9 @@ export default class ProfessionalEditModal extends Component {
 
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Collaborator Id:</label>
-                                        <input onChange={(e) => this.onCollabIdChanged(e)} type="number" defaultValue={profile.collabId} className="form-control"/>
+                                        <input 
+                                            onChange={(e) => this.onCollabIdChanged(e)} type="number" defaultValue={profile.collabId} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Labels/Tags:</label>
@@ -79,7 +81,9 @@ export default class ProfessionalEditModal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Work phone:</label>
-                                        <input onChange={(e) => this.onWorkPhoneChanged(e)} type="number" defaultValue={profile.workPhone} className="form-control"/>
+                                        <input 
+                                            onChange={(e) => this.onWorkPhoneChanged(e)} type="number" defaultValue={profile.workPhone} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Work email:</label>
@@ -101,15 +105,21 @@ export default class ProfessionalEditModal extends Component {
                                     <h2 className="info-header">Salary Conditions</h2>
                                     <div className="mb-3">
                                         <label className="form-label">Base salary:</label>
-                                        <input onChange={(e) => this.onBaseSalaryChanged(e)} type="number" defaultValue={profile.baseSalary} className="form-control"/>
+                                        <input 
+                                            onChange={(e) => this.onBaseSalaryChanged(e)} type="number" defaultValue={profile.baseSalary} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Expenses:</label>
-                                        <input type="number" onChange={(e) => this.onExpensesChanged(e)} defaultValue={profile.expenses} className="form-control"/>
+                                        <input 
+                                            type="number" onChange={(e) => this.onExpensesChanged(e)} defaultValue={profile.expenses} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Meal allowance:</label>
-                                        <input onChange={(e) => this.onMealAllowanceChanged(e)} type="number" defaultValue={profile.mealAllowance} className="form-control"/>
+                                        <input 
+                                            onChange={(e) => this.onMealAllowanceChanged(e)} type="number" defaultValue={profile.mealAllowance} className="form-control"
+                                            onKeyDown={ (evt) => (evt.key === 'e' || evt.key === '.' || evt.key === '-') && evt.preventDefault() }/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Flexible work hours:</label>

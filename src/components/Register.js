@@ -82,8 +82,7 @@ export default class Register extends Component {
         try {
             const userCredential = await this.auth.createUserWithEmailAndPassword(this.state.email, this.state.password);
             const picUrl = await this.storage.ref().child("images/default_profile_pic.jpg").getDownloadURL();
-            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl, null, "employee");
-            profile.userId = userCredential.user.uid;
+            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl, userCredential.user.uid, "employee");
 
             await this.db.collection("profiles").add({
                 userId: profile.userId,
