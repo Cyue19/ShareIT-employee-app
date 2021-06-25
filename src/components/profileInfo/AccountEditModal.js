@@ -1,55 +1,37 @@
-import React, { Component } from 'react';
-import ShowIf from "../ShowIf";
-import AccountEditModal from "./AccountEditModal";
+import React, { Component } from 'react'
 
-export default class Account extends Component {
+export default class AccountEditModal extends Component {
 
-    // onAccessEmailChanged(e) {
-    //     this.props.profile.accessEmail = e.target.value;
-    // }
+    onAccessEmailChanged(e) {
+        this.props.profile.accessEmail = e.target.value;
+    }
 
-    // onPermissionsChanged(e) {
-    //     this.props.profile.permissions = e.target.value;
-    //     this.setState({});
-    // }
+    onPermissionsChanged(e) {
+        this.props.profile.permissions = e.target.value;
+        this.setState({});
+    }
 
-    // onStatusChanged(e) {
-    //     this.props.profile.status = e.target.value;
-    //     this.setState({});
-    // }
+    onStatusChanged(e) {
+        this.props.profile.status = e.target.value;
+        this.setState({});
+    }
 
-    // onLanguageChanged(e) {
-    //     this.props.profile.language = e.target.value;
-    //     this.setState({});
-    // }
+    onLanguageChanged(e) {
+        this.props.profile.language = e.target.value;
+        this.setState({});
+    }
 
-    // saveChanges() {
-    //     this.props.update(this.props.profile);
-    //     this.setState({});
-    // }
-
+    saveChanges() {
+        this.props.update(this.props.profile);
+        this.setState({});
+    }
+    
     render() {
-        const {profile, permissions} = this.props;
+        const {profile} = this.props;
 
         return (
-            <div className="form-card" style={{backgroundColor: "white", width:"100%"}}>
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
-                    <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#accountModal">
-                    Edit
-                    </button>
-                </ShowIf>
-
-                <h3 className="info-header mx-4">SUMMARY</h3>
-                <div className="mx-4 mb-3">
-                    <hr className="profile-hr"/>
-                    <p>Access email: {profile.accessEmail}</p>
-                    <p>Permission: {profile.permissions} </p>
-                    <p>Status: {profile.status} </p>
-                    <p>Language: {profile.language}</p>
-                </div>
-
-                {/* edit modal popup*/}
-                {/* <div className="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+            <div>
+                <div className="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -98,8 +80,7 @@ export default class Account extends Component {
                             </div>
                         </div>
                     </div>
-                </div> */}
-                <AccountEditModal profile={profile} update={(profile) => this.props.update(profile)} />
+                </div>
             </div>
         )
     }

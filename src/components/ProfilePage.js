@@ -33,6 +33,7 @@ export default class ProfilePage extends Component {
         try {
             const snapShot = await this.db.collection("profiles").where("userId", "==", this.urlId).get();
             const doc = snapShot.docs[0];
+            console.log(doc);
             const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().userId, doc.data().permissions);
             profile.maritalStatus = doc.data().maritalStatus;
             profile.nationality = doc.data().nationality;
@@ -51,6 +52,20 @@ export default class ProfilePage extends Component {
             profile.bank = doc.data().bank;
             profile.iban = doc.data().iban;
             profile.swift = doc.data().swift;
+            profile.collabId = doc.data().collabId;
+            profile.labelsAndTags = doc.data().labelsAndTags;
+            profile.workPhone = doc.data().workPhone;
+            profile.workEmail = doc.data().workEmail;
+            profile.holidays = doc.data().holidays;
+            profile.job = doc.data().job;
+            profile.manager = doc.data().manager;
+            profile.baseSalary = doc.data().baseSalary;
+            profile.expenses = doc.data().expenses;
+            profile.mealAllowance = doc.data().mealAllowance;
+            profile.flexibleWorkHrs = doc.data().flexibleWorkHrs;
+            profile.comments = doc.data().comments;
+            profile.contracts = doc.data().contracts;
+            profile.absencesPerYr = doc.data().absencesPerYr;
             profile.absenceRequests = doc.data().absenceRequests;
             profile.accessEmail = doc.data().accessEmail;
             profile.permissions = doc.data().permissions;
@@ -78,9 +93,6 @@ export default class ProfilePage extends Component {
 
     async updateProfile(profile) {
         try {
-            console.log("Update", profile);
-            console.log("Update", profile.absenceRequests);
-            console.log("marital", profile.maritalStatus);
             await this.db.collection("profiles").doc(this.state.docId).update({
                 firstName: profile.firstName,
                 lastName: profile.lastName,
@@ -102,6 +114,20 @@ export default class ProfilePage extends Component {
                 bank: profile.bank,
                 iban: profile.iban,
                 swift: profile.swift,
+                collabId: profile.collabId,
+                labelsAndTags: profile.labelsAndTags,
+                workPhone: profile.workPhone,
+                workEmail: profile.workEmail,
+                holidays: profile.holidays,
+                job: profile.job,
+                manager: profile.manager,
+                baseSalary: profile.baseSalary,
+                expenses: profile.expenses,
+                mealAllowance: profile.mealAllowance,
+                flexibleWorkHrs: profile.flexibleWorkHrs,
+                comments: profile.comments,
+                absencesPerYr: profile.absencesPerYr,
+                contracts: profile.contracts,
                 accessEmail: profile.accessEmail,
                 status: profile.status,
                 permissions: profile.permissions,

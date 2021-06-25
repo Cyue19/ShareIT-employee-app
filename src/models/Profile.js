@@ -35,6 +35,8 @@ export default class Profile {
         this.mealAllowance = "";
         this.flexibleWorkHrs = "";
         this.comments = "";
+        this.contracts = [];
+        this.absencesPerYr = "";
         this.absenceRequests = [];
         this.accessEmail = "";
         this.status = "";

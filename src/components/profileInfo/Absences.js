@@ -1,89 +1,12 @@
 import React, { Component } from 'react';
 import ShowIf from "../ShowIf";
+import AbsenceEditModal from "./AbsenceEditModal";
+import RequestAbsenceModal from "./RequestAbsenceModal";
 
 export default class Absences extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            type: "",
-            period: "",
-            startDate: "",
-            endDate: "",
-            observations: "",
-            error: ""
-        }
-    }
-
-    onTypeChanged(e) {
-        this.setState({
-            type: e.target.value
-        });
-    }
-
-    onPeriodChanged(e) {
-        this.setState({
-            period: e.target.value
-        });
-    }
-
-    onStartDateChanged(e) {
-        this.setState({
-            startDate: e.target.value
-        });
-    }
-
-    onEndDateChanged(e) {
-        this.setState({
-            endDate: e.target.value
-        });
-    }
-
-    onObservationsChanged(e) {
-        this.setState({
-            observations: e.target.value
-        });
-    }
-
-    createRequest() {
-        const {type, period, startDate, endDate, observations} = this.state;
-        const {profile} = this.props;
-
-        if (!type || !period || !startDate || !endDate || !observations) {
-            this.setState({
-                error: "Please complete all fields"
-            });
-            return;
-        }
-
-        const newRequest = {type: type, period: period, startDate: startDate, endDate: endDate, observations: observations}
-        profile.absenceRequests.push(newRequest);
-
-        this.props.update(profile);
-
-        this.setState({
-            type: "",
-            period: "",
-            startDate: "",
-            endDate: "",
-            observations: "",
-            error: ""
-        });
-    }
-
-    onAbsencesPerYrChanged(e) {
-        this.props.profile.absencesPerYr = e.target.value;
-    }
-
-    saveChanges() {
-        this.props.update(this.props.profile);
-        this.setState({});
-    }
-
     render() {
         const {profile, permissions} = this.props;
-        const {type, period, startDate, endDate, observations} = this.state;
 
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
@@ -104,14 +27,14 @@ export default class Absences extends Component {
                     <hr className="profile-hr"/>
                     <p>Absences per year: {profile.absencesPerYr}</p>
                 </div>
-                <table className="table" style={{width: "80%", margin: "auto"}}>
+                <table className="table table-hover profile-table" style={{width: "80%", margin: "auto"}}>
                     <thead>
                         <tr>
-                            <th scope="col">Type</th>
-                            <th scope="col">Period</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">End Date</th>
-                            <th scope="col">Observations</th>
+                            <th scope="col">ABSENCE TYPE</th>
+                            <th scope="col">STATUS</th>
+                            <th scope="col">DATE</th>
+                            <th scope="col">DURATION</th>
+                            <th scope="col">OBSERVATIONS</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -123,106 +46,22 @@ export default class Absences extends Component {
                                 <td>{request.startDate}</td>
                                 <td>{request.endDate}</td>
                                 <td>{request.observations}</td>
-                                <td></td>
+                                <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
+                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash mx-3" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                    </svg>
+                                </td>
                             </tr>
                         )}
                     </tbody>
                 </table>
 
-                {/* edit modal popup*/}
-                <div className="modal fade" id="editAbsenceModal" tabindex="-1" aria-labelledby="editAbsenceModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered modal-lg">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="editAbsenceModalLabel">Request Absence</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-
-                            <div className="modal-body">
-                                <form className="row">
-                                    <h2 className="info-header">Absences</h2>
-                                    <div className="col-6 mb-3">
-                                        <label className="form-label">Absences per year:</label>
-                                        <input onChange={(e) => this.onAbsencesPerYrChanged(e)} type="text" defaultValue={observations} className="form-control"/>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* request absence modal popup*/}
-                <div className="modal fade" id="requestAbsenceModal" tabindex="-1" aria-labelledby="requestAbsenceModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered modal-lg">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="requestAbsenceModalLabel">Request Absence</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-
-                            <div className="modal-body">
-                                <form className="row">
-                                    <h2 className="info-header">Account Information</h2>
-                                    <div className="col-6 mb-3">
-                                        <label className="form-label">Type:</label>
-                                        <select value={type} onChange={(e) => this.onTypeChanged(e)} className="form-select">
-                                            <option value="">Choose...</option>
-                                            <option value="Vacation">Vacation</option>
-                                            <option value="Medical absence">Medical absence</option>
-                                            <option value="Unjustified absence">Unjustified absence</option>
-                                            <option value="Justified absence">Justified absence</option>
-                                            <option value="Family absence">Family absence</option>
-                                            <option value="Education absence">Education absence</option>
-                                            <option value="Marriage license">Marriage license</option>
-                                            <option value="Maternity/Paternity leave">Maternity/Paternity leave</option>
-                                            <option value="Family member death">Family member death</option>
-                                            <option value="Extra (compensation)">Extra</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-6 mb-3">
-                                        <label className="form-label">Period:</label>
-                                        <select value={period} onChange={(e) => this.onPeriodChanged(e)} className="form-select">
-                                            <option value="">Choose...</option>
-                                            <option value="Days">Days</option>
-                                            <option value="Half day">Half day</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-6 mb-3">
-                                        <label className="form-label">Start date:</label>
-                                        <select value={startDate} onChange={(e) => this.onStartDateChanged(e)} className="form-select">
-                                            <option value="">Choose...</option>
-                                            <option value="Active">Active</option>
-                                            <option value="Inactive">Inactive</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-6 mb-3">
-                                        <label className="form-label">End date:</label>
-                                        <select value={endDate} onChange={(e) => this.onEndDateChanged(e)} className="form-select">
-                                            <option value="">Choose...</option>
-                                            <option value="Employee">Employee</option>
-                                            <option value="HR">HR</option>
-                                            <option value="Admin">Admin</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-6 mb-3">
-                                        <label className="form-label">Observations:</label>
-                                        <input onChange={(e) => this.onObservationsChanged(e)} type="text" defaultValue={observations} className="form-control"/>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <AbsenceEditModal profile={profile} update={(profile) => this.props.update(profile)} />
+                <RequestAbsenceModal profile={profile} update={(profile) => this.props.update(profile)} />
             </div>
         )
     }
