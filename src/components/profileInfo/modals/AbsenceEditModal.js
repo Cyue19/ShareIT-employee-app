@@ -2,12 +2,26 @@ import React, { Component } from 'react'
 
 export default class AbsenceEditModal extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            absencesPerYr: ""
+        }
+    }
+
     onAbsencesPerYrChanged(e) {
-        this.props.profile.absencesPerYr = e.target.value;
+        this.setState({
+            absencesPerYr: e.target.value
+        });
     }
 
     saveChanges() {
-        this.props.update(this.props.profile);
+        const {profile} = this.props;
+
+        profile.absencesPerYr = this.state.absencesPerYr;
+
+        this.props.update(profile);
         this.setState({});
     }
 

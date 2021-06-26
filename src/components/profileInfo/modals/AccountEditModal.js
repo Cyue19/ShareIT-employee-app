@@ -2,27 +2,32 @@ import React, { Component } from 'react'
 
 export default class AccountEditModal extends Component {
 
-    onAccessEmailChanged(e) {
-        this.props.profile.accessEmail = e.target.value;
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            accessEmail: "",
+            permissions: "",
+            status: "",
+            language: "",
+        }
     }
 
-    onPermissionsChanged(e) {
-        this.props.profile.permissions = e.target.value;
-        this.setState({});
-    }
-
-    onStatusChanged(e) {
-        this.props.profile.status = e.target.value;
-        this.setState({});
-    }
-
-    onLanguageChanged(e) {
-        this.props.profile.language = e.target.value;
-        this.setState({});
+    handleChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
     }
 
     saveChanges() {
-        this.props.update(this.props.profile);
+        const {profile} = this.props;
+
+        profile.accessEmail = this.state.accessEmail
+        profile.permissions = this.state.permissions
+        profile.status = this.state.status
+        profile.language = this.state.language
+
+        this.props.update(profile);
         this.setState({});
     }
     
@@ -44,11 +49,11 @@ export default class AccountEditModal extends Component {
                                     <h2 className="info-header">Account Information</h2>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Access email:</label>
-                                        <input type="email" onChange={(e) => this.onAccessEmailChanged(e)} defaultValue={profile.accessEmail} className="form-control"/>
+                                        <input type="email" onChange={(e) => this.handleChange(e)} name="accessEmail" defaultValue={profile.accessEmail} className="form-control"/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Status:</label>
-                                        <select value={profile.status} onChange={(e) => this.onStatusChanged(e)} className="form-select">
+                                        <select value={profile.status} onChange={(e) => this.handleChange(e)} name="status" className="form-select">
                                             <option value="">Choose...</option>
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>
@@ -56,7 +61,7 @@ export default class AccountEditModal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Permissions:</label>
-                                        <select value={profile.permissions} onChange={(e) => this.onPermissionsChanged(e)} className="form-select">
+                                        <select value={profile.permissions} onChange={(e) => this.handleChange(e)} name="permissions" className="form-select">
                                             <option value="">Choose...</option>
                                             <option value="Employee">Employee</option>
                                             <option value="HR">HR</option>
@@ -65,7 +70,7 @@ export default class AccountEditModal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Language:</label>
-                                        <select value={profile.language} onChange={(e) => this.onLanguageChanged(e)} className="form-select">
+                                        <select value={profile.language} onChange={(e) => this.handleChange(e)} name="language" className="form-select">
                                             <option value="">Choose...</option>
                                             <option value="English">English</option>
                                             <option value="Spanish">Spanish</option>

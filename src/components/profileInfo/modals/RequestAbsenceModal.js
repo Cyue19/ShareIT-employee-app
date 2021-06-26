@@ -14,43 +14,12 @@ export default class RequestAbsenceModal extends Component {
             endDate: "",
             observations: "",
             error: "",
-            isHidden: true
         }
     }
 
-    onTypeChanged(e) {
+    handleChange(e) {
         this.setState({
-            type: e.target.value
-        });
-    }
-
-    onPeriodChanged(e) {
-        this.setState({
-            period: e.target.value
-        });
-    }
-
-    onPeriodUnitChanged(e) {
-        this.setState({
-            periodUnit: e.target.value
-        });
-    }
-
-    onStartDateChanged(e) {
-        this.setState({
-            startDate: e.target.value
-        });
-    }
-
-    onEndDateChanged(e) {
-        this.setState({
-            endDate: e.target.value
-        });
-    }
-
-    onObservationsChanged(e) {
-        this.setState({
-            observations: e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
@@ -89,7 +58,7 @@ export default class RequestAbsenceModal extends Component {
     }
 
     render() {
-        const {type, period, periodUnit, startDate, endDate, observations, error, isHidden} = this.state;
+        const {type, period, periodUnit, startDate, endDate, observations, error} = this.state;
 
         return (
             <div>
@@ -112,7 +81,7 @@ export default class RequestAbsenceModal extends Component {
                                     <h2 className="info-header">Account Information</h2>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Type:</label>
-                                        <select value={type} onChange={(e) => this.onTypeChanged(e)} className="form-select">
+                                        <select value={type} onChange={(e) => this.handleChange(e)} name="type" className="form-select">
                                             <option value="">Choose...</option>
                                             <option value="Vacation">Vacation</option>
                                             <option value="Medical absence">Medical absence</option>
@@ -130,11 +99,11 @@ export default class RequestAbsenceModal extends Component {
                                         <label className="form-label">Period:</label>
 
                                         <div className="col-6 pe-0">
-                                        <input onChange={(e) => this.onPeriodChanged(e)} type="number" defaultValue={period} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="number" name="period" defaultValue={period} className="form-control"/>
                                         </div>
 
                                         <div className="col-6 ps-0">
-                                        <select value={periodUnit} onChange={(e) => this.onPeriodUnitChanged(e)} className="form-select">
+                                        <select value={periodUnit} onChange={(e) => this.handleChange(e)} name="periodUnit" className="form-select">
                                             <option value="">Choose...</option>
                                             <option value=" days">days</option>
                                             <option value=" half day">half day</option>
@@ -143,15 +112,15 @@ export default class RequestAbsenceModal extends Component {
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Start date:</label>
-                                        <input onChange={(e) => this.onStartDateChanged(e)} type="date" defaultValue={startDate} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="date" name="startDate" defaultValue={startDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">End date:</label>
-                                        <input onChange={(e) => this.onEndDateChanged(e)} type="date" defaultValue={endDate} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="date" name="endDate" defaultValue={endDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Observations:</label>
-                                        <input onChange={(e) => this.onObservationsChanged(e)} type="text" defaultValue={observations} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="text" name="observations" defaultValue={observations} className="form-control"/>
                                     </div>
                                 </form>
                             </div>
