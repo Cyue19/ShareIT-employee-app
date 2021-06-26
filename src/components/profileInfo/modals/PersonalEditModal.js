@@ -30,8 +30,24 @@ export default class PersonalEditModal extends Component {
         this.props.profile.personalPhone = e.target.value;
     }
 
-    onAddressChanged(e) {
-        this.props.profile.address = e.target.value;
+    onAddressLine1Changed(e) {
+        this.props.profile.address.line1 = e.target.value;
+    }
+
+    onAddressLine2Changed(e) {
+        this.props.profile.address.line2 = e.target.value;
+    }
+
+    onZipCodeChanged(e) {
+        this.props.profile.address.zipCode = e.target.value;
+    }
+
+    onCityChanged(e) {
+        this.props.profile.address.city = e.target.value;
+    }
+
+    onCountryChanged(e) {
+        this.props.profile.address.country = e.target.value;
     }
 
     onContactFirstNameChanged(e) {
@@ -151,8 +167,24 @@ export default class PersonalEditModal extends Component {
                                         <input type="number" onChange={(e) => this.onPersonalPhoneChanged(e)} defaultValue={profile.personalPhone} className="form-control"/>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label">Address:</label>
-                                        <input type="text" onChange={(e) => this.onAddressChanged(e)} defaultValue={profile.address} className="form-control"/>
+                                        <label className="form-label">Address line 1:</label>
+                                        <input type="text" onChange={(e) => this.onAddressLine1Changed(e)} defaultValue={profile.address.line1} className="form-control"/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Address line 2:</label>
+                                        <input type="text" onChange={(e) => this.onAddressLine2Changed(e)} defaultValue={profile.address.line2} className="form-control"/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Zip code:</label>
+                                        <input type="text" onChange={(e) => this.onZipCodeChanged(e)} defaultValue={profile.address.zipCode} className="form-control"/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">City:</label>
+                                        <input type="text" onChange={(e) => this.onCityChanged(e)} defaultValue={profile.address.city} className="form-control"/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Country:</label>
+                                        <input type="text" onChange={(e) => this.onCountryChanged(e)} defaultValue={profile.address.country} className="form-control"/>
                                     </div>
 
                                     <h2 className="info-header">Emergency Contact</h2>
@@ -217,20 +249,32 @@ export default class PersonalEditModal extends Component {
                                     </div>
 
                                     <h2 className="info-header">Education</h2>
+                                    <div className="col-6 mb-3">
+                                        <label className="form-label">School:</label>
+                                        <input type="text" onChange={(e) => this.onSchoolChanged(e)} defaultValue={profile.school} className="form-control"/>
+                                    </div>
+                                    <div className="col-6 mb-3">
+                                        <label className="form-label">Degree:</label>
+                                        <input type="text" onChange={(e) => this.onDegreeChanged(e)} defaultValue={profile.degree} className="form-control"/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Courses:</label>
+                                        <input type="text" onChange={(e) => this.onCoursesChanged(e)} defaultValue={profile.contact.courses} className="form-control"/>
+                                    </div>
 
                                     <h2 className="info-header">Bank Information</h2>
-                                        <div className="mb-3">
-                                            <label className="form-label">Bank:</label>
-                                            <input onChange={(e) => this.onBankChanged(e)} type="text" defaultValue={profile.bank} className="form-control"/>
-                                        </div>
-                                        <div className="mb-3">
-                                            <label className="form-label">Iban:</label>
-                                            <input type="text" onChange={(e) => this.onIbanChanged(e)} defaultValue={profile.iban} className="form-control"/>
-                                        </div>
-                                        <div className="mb-3">
-                                            <label className="form-label">Swift:</label>
-                                            <input type="text" onChange={(e) => this.onSwiftChanged(e)} defaultValue={profile.swift} className="form-control"/>
-                                        </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Bank:</label>
+                                        <input onChange={(e) => this.onBankChanged(e)} type="text" defaultValue={profile.bank} className="form-control"/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Iban:</label>
+                                        <input type="text" onChange={(e) => this.onIbanChanged(e)} defaultValue={profile.iban} className="form-control"/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Swift:</label>
+                                        <input type="text" onChange={(e) => this.onSwiftChanged(e)} defaultValue={profile.swift} className="form-control"/>
+                                    </div>
                                 </form>
                             </div>
 

@@ -9,7 +9,7 @@ export default class Profile {
         this.nationality = "";
         this.personalEmail = "";
         this.personalPhone = "";
-        this.address = "";
+        this.address = {line1: "", line2: "", city: "", zipCode: "", country: ""};
         this.contact = {firstName: "", lastName: "", phone: "", relationship: ""};
         this.idNum = "";
         this.taxId = "";
@@ -19,10 +19,12 @@ export default class Profile {
         this.dependents = "";
         this.handicap = "";
         this.payee = "";
+        this.degree = "";
+        this.school = "";
+        this.courses = [];
         this.bank = "";
         this.iban = "";
         this.swift = "";
-        this.courses = [];
         this.collabId = "";
         this.labelsAndTags= "";
         this.workPhone = "";

@@ -49,6 +49,9 @@ export default class ProfilePage extends Component {
             profile.dependents = doc.data().dependents;
             profile.handicap = doc.data().handicap;
             profile.payee = doc.data().payee;
+            profile.degree = doc.data().degree;
+            profile.school = doc.data().school;
+            profile.courses = doc.data().courses;
             profile.bank = doc.data().bank;
             profile.iban = doc.data().iban;
             profile.swift = doc.data().swift;
@@ -111,6 +114,9 @@ export default class ProfilePage extends Component {
                 dependents: profile.dependents,
                 handicap: profile.handicap,
                 payee: profile.payee,
+                school: profile.school,
+                degree: profile.degree,
+                courses: profile.courses,
                 bank: profile.bank,
                 iban: profile.iban,
                 swift: profile.swift,

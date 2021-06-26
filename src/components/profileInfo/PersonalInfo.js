@@ -31,7 +31,7 @@ export default class PersonalInfo extends Component {
                     <hr className="profile-hr"/>
                     <p>Personal email: {profile.personalEmail}</p>
                     <p>Personal phone: {profile.personalPhone}</p>
-                    <p>Address: {profile.address}</p>
+                    <p>Address: {profile.address.line1} {profile.address.line2} {profile.address.zipCode} {profile.address.city} {profile.address.country}</p>
                 </div>
 
                 <h3 className="info-header mx-4">EMERGENCY CONTACT</h3>
@@ -64,24 +64,9 @@ export default class PersonalInfo extends Component {
                 <h3 className="info-header mx-4">EDUCATION</h3>
                 <div className="mx-4 mb-5" style={{margin: "auto"}}>
                     <hr className="profile-hr"/>
-                    <table className="table" style={{width: "80%", margin: "auto"}}>
-                        <thead>
-                            <tr>
-                                <th scope="col">Course Name</th>
-                                <th scope="col">School</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p>School: {profile.school}</p>
+                    <p>Degree: {profile.degree}</p>
+                    <p>Courses: {profile.courses}</p>
                 </div>
 
                 <h3 className="info-header mx-4">BANK INFORMATION</h3>
