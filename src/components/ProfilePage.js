@@ -198,7 +198,7 @@ export default class ProfilePage extends Component {
                                 </li>
                             </ul>
 
-                            <div style={{position: "absolute", width: "100%", top: "50%", paddingBottom: "30px"}}>
+                            <div style={{position: "relative", width: "100%", top: "50%", paddingBottom: "30px"}}>
                                 {this.getTab()}
                             </div>
                         </div>
