@@ -177,7 +177,7 @@ export default class Register extends Component {
                                 <label  className="form-label">Confirm Password</label>
                                 <input onChange={(e) => this.onConfirmPasswordChanged(e)} type="password" className="form-control"/>
                             </div>
-                            <ShowIf isTrue={this.state.error}>
+                            <ShowIf isTrue={error}>
                                 <div class="alert alert-danger" role="alert">
                                     {error}
                                 </div>

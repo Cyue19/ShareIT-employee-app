@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import ShowIf from "../ShowIf";
-import PersonalEditModal from "./PersonalEditModal";
+import PersonalEditModal from "./modals/PersonalEditModal";
 
 export default class PersonalInfo extends Component {
 

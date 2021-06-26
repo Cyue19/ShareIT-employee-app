@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ShowIf from "../ShowIf";
-import ProfessionalEditModal from "./ProfessionalEditModal";
+import ProfessionalEditModal from "./modals/ProfessionalEditModal";
 
 export default class ProfessionalInfo extends Component {
 
@@ -52,12 +52,15 @@ export default class ProfessionalInfo extends Component {
                 <h3 className="info-header mx-4">CONTRACTS</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
-                    <p>Full time, fixed term: </p>
-                    <p>Full time, unfixed Term: </p>
-                    <p>Part time, fixed term: </p>
-                    <p>Part time, unfixed term: </p>
-                    <p>Internship: </p>
-                    <p>Freelance: </p>
+                    { profile.contracts.map(contract => 
+                        <div class="card">
+                        <h5 class="card-header">{contract.title}</h5>
+                        <div class="card-body">
+                          <p class="card-text">Dates: {contract.startDate.slice(8,)}/{contract.startDate.slice(5,7)}/{contract.startDate.slice(0,4)} - {contract.endDate.slice(8,)}/{contract.endDate.slice(5,7)}/{contract.endDate.slice(0,4)}</p>
+                          <p class="card-text">Comments: {contract.comments}</p>
+                        </div>
+                      </div>
+                    )}
                 </div>
                 </ShowIf>
 

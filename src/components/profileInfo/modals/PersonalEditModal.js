@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Nationalities from "./Nationalities";
 
 export default class PersonalEditModal extends Component {
 
@@ -137,13 +138,7 @@ export default class PersonalEditModal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Nationality:</label>
-                                        <select value={profile.nationality} onChange={(e) => this.onNationalityChanged(e)} className="form-select">
-                                            <option value="">Choose...</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
+                                        <Nationalities profile={profile} onNationalityChanged={(e) => this.onNationalityChanged(e)} />
                                     </div>
 
                                     <h2 className="info-header">Contact Information</h2>

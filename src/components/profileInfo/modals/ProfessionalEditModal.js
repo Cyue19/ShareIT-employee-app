@@ -1,6 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import EditContracts from "./EditContracts";
 
 export default class ProfessionalEditModal extends Component {
+    
+    // constructor(props) {
+    //     super(props);
+
+    //     this.state = {
+    //         contractTitle: "",
+    //         contractStartDate: "",
+    //         contractEndDate: "",
+    //         contractComments: ""
+    //     }
+    // }
 
     onCollabIdChanged(e) {
         this.props.profile.collabId = e.target.value;
@@ -46,6 +58,46 @@ export default class ProfessionalEditModal extends Component {
         this.props.profile.comments = e.target.value;
     }
 
+    // onContractTitleChanged(e) {
+    //     this.setState({
+    //         contractTitle: e.target.value
+    //     });
+    // }
+
+    // onContractStartDateChanged(e) {
+    //     this.setState({
+    //         contractStartDate: e.target.value
+    //     });
+    // }
+
+    // onContractEndDateChanged(e) {
+    //     this.setState({
+    //         contractEndDate: e.target.value
+    //     });
+    // }
+
+    // onContractCommentsChanged(e) {
+    //     this.setState({
+    //         contractComments: e.target.value
+    //     });
+    // }
+
+    // createContract() {
+    //     const {contractTitle, contractStartDate, contractEndDate, contractComments} = this.state;
+    //     this.props.profile.contracts.push({id: Date.now(), title: contractTitle, startDate: contractStartDate, endDate: contractEndDate, comments: contractComments});
+
+    //     this.clearInputs();
+    // }
+
+    clearInputs() {
+        this.setState = ({
+            contractTitle: "",
+            contractStartDate: "",
+            contractEndDate: "",
+            contractComments: ""
+        });
+    }
+
     saveChanges() {
         this.props.update(this.props.profile);
         this.setState({});
@@ -75,7 +127,12 @@ export default class ProfessionalEditModal extends Component {
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Labels/Tags:</label>
-                                        <input onChange={(e) => this.onLabelsAndTagsChanged(e)} type="text" defaultValue={profile.labelsAndTags} className="form-control"/>
+                                        <select value={profile.labelsAndTags} onChange={(e) => this.onLabelsAndTagsChanged(e)} className="form-select">
+                                            <option value="">Choose...</option>
+                                            <option value="SH">SH</option>
+                                            <option value="SH2">SH2</option>
+                                            <option value="AN">AN</option>
+                                        </select>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Work phone:</label>
@@ -113,7 +170,7 @@ export default class ProfessionalEditModal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Flexible work hours:</label>
-                                        <input type="text" onChange={(e) => this.onFlexibleWorkHrsChanged(e)} defaultValue={profile.flexibleWorkHrs} className="form-control"/>
+                                        <input type="number" onChange={(e) => this.onFlexibleWorkHrsChanged(e)} defaultValue={profile.flexibleWorkHrs} className="form-control"/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Comments:</label>
@@ -121,6 +178,43 @@ export default class ProfessionalEditModal extends Component {
                                     </div>
 
                                     <h2 className="info-header">Contracts</h2>
+                                    <EditContracts profile={profile} />
+                                    {/* <div className="mb-3">
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#addContract" aria-expanded="false" aria-controls="addContract">
+                                            Add Contract
+                                        </button>
+                                        <div class="collapse" id="addContract">
+                                            <div class="card card-body">
+                                                <div className="row">
+                                                    <div className="col-4">
+                                                        <label className="form-label">Title:</label>
+                                                        <select value={contractTitle} onChange={(e) => this.onContractTitleChanged(e)} className="form-select">
+                                                            <option value="">Choose...</option>
+                                                            <option value="Full time, fixed term">Full time, fixed term</option>
+                                                            <option value="Full time, unfixed term">Full time, unfixed term</option>
+                                                            <option value="Part time, fixed term">Part time, fixed term</option>
+                                                            <option value="Internship">Internship</option>
+                                                            <option value="Freelance">Freelance</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="mb-3 col-4">
+                                                        <label className="form-label">Start date:</label>
+                                                        <input type="date" onChange={(e) => this.onContractStartDateChanged(e)} defaultValue={contractStartDate} className="form-control"/>
+                                                    </div>
+                                                    <div className="mb-3 col-4">
+                                                        <label className="form-label">End date:</label>
+                                                        <input type="date" onChange={(e) => this.onContractEndDateChanged(e)} defaultValue={contractEndDate} className="form-control"/>
+                                                    </div>
+                                                    <div className="mb-3">
+                                                        <label className="form-label">Comments:</label>
+                                                        <input onChange={(e) => this.onContractCommentsChanged(e)} type="text" defaultValue={contractComments} className="form-control"/>
+                                                    </div>
+
+                                                    <button onClick={() => this.createContract()} className="btn btn-primary">Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> */}
 
                                 </form>
                             </div>
