@@ -20,7 +20,7 @@ export default class Register extends Component {
         this.state = {
             firstName: "",
             lastName: "",
-            email: "",
+            accessEmail: "",
             password: "",
             confirmPassword: "",
             error: "",
@@ -42,7 +42,7 @@ export default class Register extends Component {
 
     onEmailChanged(e) {
         this.setState({
-            email: e.target.value
+            accessEmail: e.target.value
         });
     }
 
@@ -59,13 +59,13 @@ export default class Register extends Component {
     }
 
     async createUserAndProfile() {
-        const {firstName, lastName, password, confirmPassword } = this.state;
+        const {firstName, lastName, password, confirmPassword, accessEmail } = this.state;
 
         this.setState({
             btnLoading: true
         });
 
-        if (!firstName || !lastName || !confirmPassword) {
+        if (!firstName || !lastName || !confirmPassword || !accessEmail) {
             this.setState({
                 error: "Please complete all fields",
                 btnLoading: false
@@ -79,11 +79,11 @@ export default class Register extends Component {
             return;
         }
 
+        console.log(this.state.accessEmail);
         try {
-            const userCredential = await this.auth.createUserWithEmailAndPassword(this.state.email, this.state.password);
+            const userCredential = await this.auth.createUserWithEmailAndPassword(this.state.accessEmail, this.state.password);
             const picUrl = await this.storage.ref().child("images/default_profile_pic.jpg").getDownloadURL();
-            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl, userCredential.user.uid, "employee");
-
+            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl, userCredential.user.uid, "employee", this.state.accessEmail);
             await this.db.collection("profiles").add({
                 userId: profile.userId,
                 firstName: profile.firstName,

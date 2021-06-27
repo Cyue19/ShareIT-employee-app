@@ -1,5 +1,5 @@
 export default class Profile {
-    constructor(firstName, lastName, picUrl, userId, permissions) {
+    constructor(firstName, lastName, picUrl, userId, permissions, accessEmail) {
         this.userId = userId;
         this.permissions = permissions;
         this.firstName = firstName;
@@ -38,7 +38,7 @@ export default class Profile {
         this.contracts = [];
         this.absencesPerYr = "";
         this.absenceRequests = [];
-        this.accessEmail = "";
+        this.accessEmail = accessEmail;
         this.status = "";
         this.language = "";
     }
