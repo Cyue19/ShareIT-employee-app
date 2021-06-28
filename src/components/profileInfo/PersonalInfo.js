@@ -6,12 +6,12 @@ import PersonalEditModal from "./modals/PersonalEditModal";
 export default class PersonalInfo extends Component {
 
     render() {
-        const { profile, permissions } = this.props;
+        const { profile, permissions, self } = this.props;
 
         return (
-            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative", boxShadowTop: "none"}}>
+            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
 
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#personalInfoModal">
                     Edit
                     </button>

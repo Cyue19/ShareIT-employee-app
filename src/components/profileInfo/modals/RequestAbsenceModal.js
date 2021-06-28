@@ -39,8 +39,15 @@ export default class RequestAbsenceModal extends Component {
 
         this.props.update(profile);
 
-        // const modal = new bootstrap.Modal(document.getElementById("requestAbsenceModal"));
+        const modalEl = document.getElementById("requestAbsenceModal");
+        // const modal = bootstrap.Modal.getInstance(modalEl);
         // modal.hide();
+        modalEl.classList.remove("show");
+        // modal.classList.remove("show");
+        // modal.classList.add("hide");
+        // const backdrop = document.getElementsByClassName("modal-backdrop fade show");
+        // backdrop.classList.remove("show");
+
         this.clearInputs();
     }
 
