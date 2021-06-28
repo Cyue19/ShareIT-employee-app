@@ -10,7 +10,8 @@ class Navbar extends Component {
     constructor(props) {
         super(props);
         this.state={
-            user: props.user
+            user: props.user,
+            click: false 
         }
     }
 
@@ -28,16 +29,26 @@ class Navbar extends Component {
         this.props.history.push(url);
     } 
 
-
+    handleClick() {
+        this.setState({
+            click: !this.state.click
+        })
+    }
+    closeMobileMenu() {
+        this.setState({
+            click: false 
+        })
+    }
+    
     render() {
         const { user } = this.props;
         const url = '/profile/';
 
         return (
-            <div>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light ms-3">
+            <div style={{width: '90%', margin: 'auto'}}>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <Link to="/" className="navbar-brand"><img src={img1} alt="Logo" style={{width: '120px', position: 'relative', top: '8px'}} className="mb-3"/></Link>
-                    <button className="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -87,9 +98,62 @@ class Navbar extends Component {
                             }       
                         </ul>
                     </div>
-                    
-               
-            </nav>
+                </nav>
+                {/* <nav className="navbar mb-3" style={{width: '90%', margin: 'auto'}}>
+                    <div className="navbar-container">
+                        <Link to="/" className="navbar-brand"><img src={img1} alt="Logo" style={{width: '120px', position: 'relative', top: '8px'}} className="mb-3"/></Link>
+                        <div className='menu-icon' onClick={this.handleClick}>
+                            <i className={this.state.click ? 'fas fa-times' : 'fas fa-bars'} />
+                        </div>
+                        <ul className={this.state.click ? 'nav-menu active' : 'nav-menu'}>
+                            {
+                                user ?
+                                    <li className="nav-item">
+                                        <Link className="nav-links" to='/main'>Employees</Link>
+                                    </li>
+                                :
+                                    null
+                            }
+                            {
+                                user ?
+                                    <li className="nav-item">
+                                        <Link className="nav-links" to={url + this.props.user.$.W}>My Account</Link>
+                                    </li>
+                                :
+                                    null
+                            }
+                            {
+                                user ?
+                                    <li className="nav-item">
+                                        <Link className="nav-links" onClick={()=>this.logout()}>Log Out</Link>
+                                    </li>
+                                :
+                                    null
+                            }
+
+                            {
+                                !user ?
+                                    <li className="nav-item">
+                                        <Link className="nav-links" to="/login">Log In</Link>
+                                    </li>
+                                :
+                                    null
+                            }
+
+                            {
+                                !user ?
+                                    <li className="nav-item">
+                                        <Link className="nav-links" to="/register">Register</Link>
+                                    </li>
+                                :
+                                    null
+                            }      
+                        </ul>
+                    </div>
+                    <li className="icon nav-item">
+                        <i className="actual-icon bi bi-list"></i>
+                    </li>
+                </nav> */}
             </div>
             
          );

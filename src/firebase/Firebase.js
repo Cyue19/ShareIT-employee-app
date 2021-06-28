@@ -28,6 +28,7 @@ class Firebase {
         this.firebase = firebase.initializeApp(firebaseConfig);
         this.db = this.firebase.firestore();
         this.auth = this.firebase.auth();
+        this.storage = this.firebase.storage();
     }
 
 }

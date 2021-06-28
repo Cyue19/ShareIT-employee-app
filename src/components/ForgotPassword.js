@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import Firebase from "../firebase/Firebase";
+import firebase from 'firebase';
 
 export default class ForgotPassword extends Component {
     constructor(props) {
@@ -19,13 +20,19 @@ export default class ForgotPassword extends Component {
 
     async confirm(e) {
         e.preventDefault();
-        const snapshot = await this.db.collection('profiles').where('email', '==', this.state.email).get();
+        const snapshot = await this.db.collection('profiles').where('accessEmail', '==', this.state.email).get();
         if (this.state.email === '') {
             alert("Please enter your email address.")
         } else if (snapshot.docs.length !== 1) {
             document.getElementById('confirm').innerHTML = "There is no account registered with the input email."
         } else {
-            document.getElementById('confirm').innerHTML = "A temporary passcode has been sent to your email address."
+            firebase.auth().sendPasswordResetEmail(this.state.email)
+                .then(() => {
+                document.getElementById('confirm').innerHTML = "A password reset link has been sent to your email."
+            })
+            .catch((error) => {
+                alert(error);
+            });
         }
     }
     

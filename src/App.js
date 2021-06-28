@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 
 import Register from "./components/Register";
@@ -18,34 +19,29 @@ import ProfilePage from './components/ProfilePage';
 import Navbar from './components/Navbar';
 
 class App extends Component {
+
   constructor(props) {
     super(props);
-    this.state = {
-      user: null, 
-      loading: true
-    };
-    this.db = Firebase.instance().db;
     this.auth = Firebase.instance().auth;
+    this.db = Firebase.instance().db;
+
+    this.state={
+      user: null,
+      loading: true,
+    }
   }
 
   componentDidMount() {
     this.subscribeToUserState();
-    this.fetchTask();
-    console.log(this.state.user);
   }
 
   subscribeToUserState() {
     this.auth.onAuthStateChanged((user) => {
-      this.setState({ user, loading: false });
+      this.setState({
+        user,
+        loading: false
+      });
     });
-  };
-
-  async fetchTask() {
-    try {
-      await this.db.collection('profiles').get();
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   render() {
@@ -54,7 +50,7 @@ class App extends Component {
       <div>
         {
           loading ? 
-            <div>Loading</div>
+            <div></div>
           :
           <BrowserRouter>
             <Navbar user={user}/>

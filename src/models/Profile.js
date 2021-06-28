@@ -1,22 +1,46 @@
 export default class Profile {
-    constructor(firstName, lastName, userId) {
-        
+    constructor(firstName, lastName, picUrl, userId, permissions, accessEmail) {
+        this.userId = userId;
+        this.permissions = permissions;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userId = userId;
-        this.civilState = "";
+        this.picture = picUrl;
+        this.maritalStatus = "";
         this.nationality = "";
         this.personalEmail = "";
-        this.collabId = "";
+        this.personalPhone = "";
+        this.address = "";
+        this.contact = {firstName: "", lastName: "", phone: "", relationship: ""};
+        this.idNum = "";
         this.taxId = "";
         this.ssn = "";
         this.licenseNum = "";
         this.carPlateNum = "";
-        this.contact = "";
-        this.courses = [];
+        this.dependents = "";
+        this.handicap = "";
+        this.payee = "";
         this.bank = "";
         this.iban = "";
         this.swift = "";
+        this.courses = [];
+        this.collabId = "";
+        this.labelsAndTags= "";
+        this.workPhone = "";
+        this.workEmail = "";
+        this.holidays = [];
+        this.job = "";
+        this.manager = "";
+        this.baseSalary = "";
+        this.expenses = "";
+        this.mealAllowance = "";
+        this.flexibleWorkHrs = "";
+        this.comments = "";
+        this.contracts = [];
+        this.absencesPerYr = "";
+        this.absenceRequests = [];
+        this.accessEmail = accessEmail;
+        this.status = "";
+        this.language = "";
     }
 
     static fromFirebaseDoc(doc) {
