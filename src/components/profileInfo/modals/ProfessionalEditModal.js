@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import ManagerSearch from "./ManagerSearch";
 
 export default class ProfessionalEditModal extends Component {
     
@@ -153,9 +154,10 @@ export default class ProfessionalEditModal extends Component {
                                         <input onChange={(e) => this.handleChange(e)} type="text" name="job" defaultValue={profile.job} className="form-control"/>
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label">Manager:</label>
+                                        <label className="form-label">Manager full name (first and last):</label>
                                         <input type="text" onChange={(e) => this.handleChange(e)} name="manager" defaultValue={profile.manager} className="form-control"/>
                                     </div>
+                                    {/* <ManagerSearch profile={profile} modalChange={(e) => this.handleChange(e)}/> */}
 
                                     <h2 className="info-header">Salary Conditions</h2>
                                     <div className=" col-6 mb-3">

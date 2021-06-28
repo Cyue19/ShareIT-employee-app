@@ -85,11 +85,12 @@ export default class Register extends Component {
             const profile = new Profile(this.state.firstName, this.state.lastName, picUrl, null, "employee");
             profile.userId = userCredential.user.uid;
 
-            await this.db.collection("profiles").add({
+            await this.db.collection("profiles").doc(profile.userId).set({
                 userId: profile.userId,
                 firstName: profile.firstName,
                 lastName: profile.lastName,
                 picture: profile.picture,
+                birthDate: profile.birthDate,
                 maritalStatus: profile.maritalStatus,
                 nationality: profile.nationality,
                 personalEmail: profile.personalEmail,

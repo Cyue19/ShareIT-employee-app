@@ -7,7 +7,7 @@ export default class PersonalEditModal extends Component {
         super(props);
 
         this.state = {
-            firstName: "",
+            firstName: props.profile.firstName,
             lastName: "",
             birthDate: "",
             maritalStatus: "",
@@ -43,6 +43,12 @@ export default class PersonalEditModal extends Component {
     onChange(e) {
         this.setState({
             [e.target.name]: e.target.value
+        });
+    }
+
+    restoreDefault() {
+        this.setState({
+            firstName: this.props.profile.firstName
         });
     }
 
@@ -100,7 +106,7 @@ export default class PersonalEditModal extends Component {
 
                                     <div className="col-6 mb-3">
                                         <label className="form-label">First name:</label>
-                                        <input onChange={(e) => this.onChange(e)} type="text" name="firstName" defaultValue={profile.firstName} className="form-control"/>
+                                        <input onChange={(e) => this.onChange(e)} type="text" name="firstName" value={this.state.firstName} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Last name:</label>
@@ -248,7 +254,7 @@ export default class PersonalEditModal extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button onClick={() => this.saveChanges()} type="button" className="btn btn-primary">Save changes</button>
                             </div>
                         </div>

@@ -42,7 +42,7 @@ export default class PersonalInfo extends Component {
                     <p>Relationship: {profile.contact.relationship}</p>
                 </div>
 
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                <ShowIf isTrue={this.props.self || profile.permissions==="HR" || profile.permissions ==="Admin"}>
                 <h3 className="info-header mx-4">IDENTIFICATION</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>

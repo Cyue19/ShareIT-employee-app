@@ -23,7 +23,6 @@ export default class ProfilePage extends Component {
             tab: 1,
             profile: null,
             loading: true,
-            docId: null,
             permissions: null
         }
     }
@@ -97,7 +96,8 @@ export default class ProfilePage extends Component {
 
     async updateProfile(profile) {
         try {
-            await this.db.collection("profiles").doc(this.state.docId).update({
+            console.log(profile.picture);
+            await this.db.collection("profiles").doc(profile.userId).update({
                 firstName: profile.firstName,
                 lastName: profile.lastName,
                 picture: profile.picture,
@@ -188,7 +188,7 @@ export default class ProfilePage extends Component {
             <div className="pb-3" style={{position: "relative"}}>
 
                     <LoadSpinner loading={loading}>
-                        <ProfileBar self={user.uid===this.urlId} profile={profile}/>   
+                        <ProfileBar update={(profile) => this.updateProfile(profile)} self={user.uid===this.urlId} profile={profile}/>   
 
                         <div style={{width: "90%", margin: "auto", position: "relative"}}>
                             <ul className="nav nav-tabs">
