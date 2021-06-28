@@ -5,6 +5,7 @@ export default class Profile {
         this.firstName = firstName;
         this.lastName = lastName;
         this.picture = picUrl;
+        this.birthDate = "";
         this.maritalStatus = "";
         this.nationality = "";
         this.personalEmail = "";

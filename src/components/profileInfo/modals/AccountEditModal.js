@@ -51,7 +51,7 @@ export default class AccountEditModal extends Component {
                                         <label className="form-label">Access email:</label>
                                         <input type="email" onChange={(e) => this.handleChange(e)} name="accessEmail" defaultValue={profile.accessEmail} className="form-control"/>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Status:</label>
                                         <select value={profile.status} onChange={(e) => this.handleChange(e)} name="status" className="form-select">
                                             <option value="">Choose...</option>
@@ -59,7 +59,7 @@ export default class AccountEditModal extends Component {
                                             <option value="Inactive">Inactive</option>
                                         </select>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Permissions:</label>
                                         <select value={profile.permissions} onChange={(e) => this.handleChange(e)} name="permissions" className="form-select">
                                             <option value="">Choose...</option>
@@ -68,7 +68,7 @@ export default class AccountEditModal extends Component {
                                             <option value="Admin">Admin</option>
                                         </select>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Language:</label>
                                         <select value={profile.language} onChange={(e) => this.handleChange(e)} name="language" className="form-select">
                                             <option value="">Choose...</option>

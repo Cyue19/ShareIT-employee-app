@@ -136,11 +136,11 @@ export default class ProfessionalEditModal extends Component {
                                             <option value="AN">AN</option>
                                         </select>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Work phone:</label>
                                         <input onChange={(e) => this.handleChange(e)} type="number" name="workPhone" defaultValue={profile.workPhone} className="form-control"/>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Work email:</label>
                                         <input onChange={(e) => this.handleChange(e)} type="email" name="workEmail" defaultValue={profile.workEmail} className="form-control"/>
                                     </div>
@@ -158,19 +158,19 @@ export default class ProfessionalEditModal extends Component {
                                     </div>
 
                                     <h2 className="info-header">Salary Conditions</h2>
-                                    <div className="mb-3">
+                                    <div className=" col-6 mb-3">
                                         <label className="form-label">Base salary:</label>
                                         <input onChange={(e) => this.handleChange(e)} type="number" name="baseSalary" defaultValue={profile.baseSalary} className="form-control"/>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Expenses:</label>
                                         <input type="number" onChange={(e) => this.handleChange(e)} name="expenses" defaultValue={profile.expenses} className="form-control"/>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Meal allowance:</label>
                                         <input onChange={(e) => this.handleChange(e)} type="number" name="mealAllowance" defaultValue={profile.mealAllowance} className="form-control"/>
                                     </div>
-                                    <div className="mb-3">
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Flexible work hours:</label>
                                         <input type="number" onChange={(e) => this.handleChange(e)} name="flexibleWorkHrs" defaultValue={profile.flexibleWorkHrs} className="form-control"/>
                                     </div>
