@@ -92,7 +92,7 @@ export default class PersonalEditModal extends Component {
         return (
             <div>
                 {/* edit modal popup*/}
-                <div className="modal fade" id="personalInfoModal" tabindex="-1" aria-labelledby="personalInfoModalLabel" aria-hidden="true">
+                <div className="modal fade" id="personalInfoModal" aria-labelledby="personalInfoModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">

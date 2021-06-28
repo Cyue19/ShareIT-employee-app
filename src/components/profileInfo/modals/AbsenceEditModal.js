@@ -30,7 +30,7 @@ export default class AbsenceEditModal extends Component {
 
         return (
             <div>
-                <div className="modal fade" id="editAbsenceModal" tabindex="-1" aria-labelledby="editAbsenceModalLabel" aria-hidden="true">
+                <div className="modal fade" id="editAbsenceModal" aria-labelledby="editAbsenceModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">

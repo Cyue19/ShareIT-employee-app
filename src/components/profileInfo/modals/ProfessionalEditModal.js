@@ -112,7 +112,7 @@ export default class ProfessionalEditModal extends Component {
         return (
             <div>
                 {/* edit modal popup*/}
-                <div className="modal fade" id="profInfoModal" tabindex="-1" aria-labelledby="profInfoModalLabel" aria-hidden="true">
+                <div className="modal fade" id="profInfoModal" aria-labelledby="profInfoModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -183,11 +183,11 @@ export default class ProfessionalEditModal extends Component {
 
                                     <h2 className="info-header">Contracts</h2>
                                     <div>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#addContract" aria-expanded="false" aria-controls="addContract">
+                                        <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#addContract" aria-expanded="false" aria-controls="addContract">
                                             + Add Contract
                                         </button>
-                                        <div class="collapse" id="addContract">
-                                            <div class="card card-body">
+                                        <div className="collapse" id="addContract">
+                                            <div className="card card-body">
                                                 <div className="row">
                                                     <div className="col-4">
                                                         <label className="form-label">Title:</label>
@@ -219,8 +219,8 @@ export default class ProfessionalEditModal extends Component {
                                         </div>
 
                                         { this.contractsCopy.map(contract => 
-                                            <div style={{padding: "0px"}} class="card mt-2">
-                                                <h5 class="card-header">
+                                            <div style={{padding: "0px"}} className="card mt-2">
+                                                <h5 className="card-header">
                                                     { contract.isEditing ?
                                                         <div className="row">
                                                             <div className="col-10">
@@ -254,7 +254,7 @@ export default class ProfessionalEditModal extends Component {
                                                     }
                                                         
                                                 </h5>
-                                                <div class="card-body">
+                                                <div className="card-body">
                                                     { contract.isEditing ?
                                                         <div className="row">
                                                             <div className="mb-3 col-6">

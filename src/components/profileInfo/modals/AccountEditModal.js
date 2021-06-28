@@ -36,7 +36,7 @@ export default class AccountEditModal extends Component {
 
         return (
             <div>
-                <div className="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+                <div className="modal fade" id="accountModal" aria-labelledby="accountModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
