@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import img1 from '../img/shareit_logomarca_2021.png';
+import './Home.css';
 
 export default class Home extends Component {
     constructor(props) {

@@ -29,6 +29,7 @@ class Firebase {
         this.db = this.firebase.firestore();
         this.auth = this.firebase.auth();
     }
+
 }
 
 export default Firebase; 
