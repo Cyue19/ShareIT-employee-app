@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 // import ManagerSearch from "./ManagerSearch";
+import Firebase from "../../../firebase/Firebase"
 
 export default class ProfessionalEditModal extends Component {
     
     constructor(props) {
         super(props);
         this.contractsCopy = JSON.parse(JSON.stringify(props.profile.contracts));
+        this.db = Firebase.instance().db;
 
         this.state = {
             collabId: props.profile.collabId,
@@ -13,7 +15,8 @@ export default class ProfessionalEditModal extends Component {
             workPhone: props.profile.workPhone,
             workEmail: props.profile.workEmail,
             job: props.profile.job,
-            manager: props.profile.manager,
+            managerName: props.profile.manager.fullName,
+            managerId: props.profile.manager.userId,
             baseSalary: props.profile.baseSalary,
             expenses: props.profile.expenses,
             mealAllowance: props.profile.mealAllowance,
@@ -34,6 +37,33 @@ export default class ProfessionalEditModal extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
+    }
+
+    async findManager() {
+        try {
+            if (this.state.managerName.length===0) {
+                return;
+            }
+
+            const spaceIndex = this.state.managerName.indexOf(" ");
+            if (spaceIndex < 0) {
+                return;
+            } else {
+                const firstName = this.state.managerName.slice(0, spaceIndex);
+                const lastName = this.state.managerName.slice(spaceIndex+1,);
+                console.log(firstName, lastName);
+
+                const snapShot = await this.db.collection("profiles").where("firstName", "==", firstName).where("lastName", "==", lastName).get();
+                const doc = snapShot.docs[0];
+                console.log(doc.data().firstName, doc.data().lastName, doc.data().userId);
+
+                this.setState({
+                    managerId: doc.data().userId
+                });
+            }
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     /**Add contract in edit modal display */
@@ -85,15 +115,19 @@ export default class ProfessionalEditModal extends Component {
     }
 
     /**Save changes on edit modal display to profile page and firebase */
-    saveChanges() {
+    async saveChanges() {
         const {profile} = this.props;
+
+        if(this.state.managerName !== profile.manager.fullName) {
+            await this.findManager();
+        }
 
         profile.collabId = this.state.collabId;
         profile.labelsAndTags = this.state.labelsAndTags;
         profile.workPhone = this.state.workPhone;
         profile.workEmail = this.state.workEmail;
         profile.job = this.state.job;
-        profile.manager = this.state.manager;
+        profile.manager = {fullName: this.state.managerName, userId: this.state.managerId};
         profile.baseSalary = this.state.baseSalary;
         profile.expenses = this.state.expenses;
         profile.mealAllowance = this.state.mealAllowance;
@@ -155,7 +189,7 @@ export default class ProfessionalEditModal extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Manager full name (first and last):</label>
-                                        <input type="text" onChange={(e) => this.handleChange(e)} name="manager" defaultValue={profile.manager} className="form-control"/>
+                                        <input type="text" onChange={(e) => this.handleChange(e)} name="managerName" defaultValue={this.state.managerName} className="form-control"/>
                                     </div>
                                     {/* <ManagerSearch profile={profile} modalChange={(e) => this.handleChange(e)}/> */}
 

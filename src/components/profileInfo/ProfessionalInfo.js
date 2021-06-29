@@ -35,7 +35,7 @@ export default class ProfessionalInfo extends Component {
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
                     <p>Job: {profile.job}</p>
-                    <p>Manager: {profile.manager}</p>
+                    <p>Manager: {profile.manager.fullName}</p>
                 </div>
 
                 <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
