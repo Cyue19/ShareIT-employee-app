@@ -52,7 +52,9 @@ export default class PersonalEditModal extends Component {
         });
     }
 
-    saveChanges() {
+    saveChanges(e) {
+        e.preventDefault();
+        
         this.props.profile.firstName = this.state.firstName;
         this.props.profile.lastName = this.state.lastName;
         this.props.profile.birthDate = this.state.birthDate;
@@ -255,7 +257,7 @@ export default class PersonalEditModal extends Component {
 
                             <div className="modal-footer">
                                 <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.saveChanges()} type="button" className="btn btn-primary">Save changes</button>
+                                <button onClick={(e) => this.saveChanges(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>
                     </div>

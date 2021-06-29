@@ -23,7 +23,9 @@ export default class RequestAbsenceModal extends Component {
         });
     }
 
-    createRequest() {
+    createRequest(e) {
+        e.preventDefault();
+
         const {type, period, periodUnit, startDate, endDate, observations} = this.state;
         const {profile} = this.props;
 
@@ -38,15 +40,6 @@ export default class RequestAbsenceModal extends Component {
         profile.absenceRequests.push(newRequest);
 
         this.props.update(profile);
-
-        const modalEl = document.getElementById("requestAbsenceModal");
-        // const modal = bootstrap.Modal.getInstance(modalEl);
-        // modal.hide();
-        modalEl.classList.remove("show");
-        // modal.classList.remove("show");
-        // modal.classList.add("hide");
-        // const backdrop = document.getElementsByClassName("modal-backdrop fade show");
-        // backdrop.classList.remove("show");
 
         this.clearInputs();
     }
@@ -78,7 +71,7 @@ export default class RequestAbsenceModal extends Component {
                             </div>
 
                             <ShowIf isTrue={error}>
-                                <div class="alert alert-danger" role="alert">
+                                <div className="alert alert-danger" role="alert">
                                     {error}
                                 </div>
                             </ShowIf>
@@ -134,7 +127,7 @@ export default class RequestAbsenceModal extends Component {
 
                             <div className="modal-footer">
                                 <button onClick={() => this.clearInputs()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary">Save changes</button>
+                                <button onClick={(e) => this.createRequest(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>
                     </div>

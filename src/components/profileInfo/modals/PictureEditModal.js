@@ -65,7 +65,8 @@ export default class PictureEditModal extends Component {
         });
     }
 
-    saveChanges() {
+    saveChanges(e) {
+        e.preventDefault();
         const {profile} = this.props;
 
         profile.picture = this.state.pictureUrl;
@@ -101,7 +102,7 @@ export default class PictureEditModal extends Component {
 
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.saveChanges()} type="button" className="btn btn-primary">Save changes</button>
+                                <button onClick={(e) => this.saveChanges(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>
                     </div>

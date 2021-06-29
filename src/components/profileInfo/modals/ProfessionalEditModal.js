@@ -115,7 +115,8 @@ export default class ProfessionalEditModal extends Component {
     }
 
     /**Save changes on edit modal display to profile page and firebase */
-    async saveChanges() {
+    async saveChanges(e) {
+        e.preventDefault();
         const {profile} = this.props;
 
         if(this.state.managerName !== profile.manager.fullName) {
@@ -319,7 +320,7 @@ export default class ProfessionalEditModal extends Component {
 
                             <div className="modal-footer">
                                 <button onClick={() => this.clearUnsavedContracts()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.saveChanges()} type="button" className="btn btn-primary">Save changes</button>
+                                <button onClick={(e) => this.saveChanges(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>
                     </div>
