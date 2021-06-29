@@ -130,6 +130,7 @@ export default class Register extends Component {
                 status: profile.status,
                 language: profile.language,
                 absenceRequests: profile.absenceRequests,
+                notifications: profile.notifications
             });
 
             this.setState({

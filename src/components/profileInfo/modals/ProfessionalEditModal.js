@@ -39,6 +39,7 @@ export default class ProfessionalEditModal extends Component {
         });
     }
 
+    /**Find manager's user id from name */
     async findManager() {
         try {
             if (this.state.managerName.length===0) {
@@ -108,10 +109,28 @@ export default class ProfessionalEditModal extends Component {
         });
     }
 
+    /** Restore the edit modal field values to default */
+    restoreDefault() {
+        this.clearUnsavedContracts();
+        this.setState({
+            collabId: this.props.profile.collabId,
+            labelsAndTags: this.props.profile.labelsAndTags,
+            workPhone: this.props.profile.workPhone,
+            workEmail: this.props.profile.workEmail,
+            job: this.props.profile.job,
+            managerName: this.props.profile.manager.fullName,
+            managerId: this.props.profile.manager.userId,
+            baseSalary: this.props.profile.baseSalary,
+            expenses: this.props.profile.expenses,
+            mealAllowance: this.props.profile.mealAllowance,
+            flexibleWorkHrs: this.props.profile.flexibleWorkHrs,
+            comments: this.props.profile.comments,
+        });
+    }
+
     /**Clear unsaved changes to contracts sections*/
     clearUnsavedContracts() {
         this.contractsCopy = JSON.parse(JSON.stringify(this.props.profile.contracts));
-        this.setState({});
     }
 
     /**Save changes on edit modal display to profile page and firebase */
@@ -142,7 +161,7 @@ export default class ProfessionalEditModal extends Component {
 
     render() {
         const {profile} = this.props;
-        const {title, startDate, endDate, contractComments, editTitle} = this.state;
+        const {collabId, labelsAndTags, workPhone, workEmail, job, managerName, baseSalary, expenses, mealAllowance, flexibleWorkHrs, comments, title, startDate, endDate, contractComments, editTitle} = this.state;
 
         return (
             <div>
@@ -152,7 +171,7 @@ export default class ProfessionalEditModal extends Component {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="profInfoModalLabel">Edit Personal Information</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" onClick={() => this.restoreDefault()} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
                             <div className="modal-body">
@@ -161,11 +180,11 @@ export default class ProfessionalEditModal extends Component {
 
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Collaborator Id:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="number" name="collabId" defaultValue={profile.collabId} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="number" name="collabId" value={collabId} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Labels/Tags:</label>
-                                        <select value={profile.labelsAndTags} onChange={(e) => this.handleChange(e)} name="labelsAndTags" className="form-select">
+                                        <select value={labelsAndTags} onChange={(e) => this.handleChange(e)} name="labelsAndTags" className="form-select">
                                             <option value="">Choose...</option>
                                             <option value="SH">SH</option>
                                             <option value="SH2">SH2</option>
@@ -174,11 +193,11 @@ export default class ProfessionalEditModal extends Component {
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Work phone:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="number" name="workPhone" defaultValue={profile.workPhone} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="number" name="workPhone" value={workPhone} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Work email:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="email" name="workEmail" defaultValue={profile.workEmail} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="email" name="workEmail" value={workEmail} className="form-control"/>
                                     </div>
 
                                     <h2 className="info-header">Covered Holidays</h2>
@@ -186,34 +205,33 @@ export default class ProfessionalEditModal extends Component {
                                     <h2 className="info-header">Job Details</h2>
                                     <div className="mb-3">
                                         <label className="form-label">Job:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="text" name="job" defaultValue={profile.job} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="text" name="job" value={job} className="form-control"/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Manager full name (first and last):</label>
-                                        <input type="text" onChange={(e) => this.handleChange(e)} name="managerName" defaultValue={this.state.managerName} className="form-control"/>
+                                        <input type="text" onChange={(e) => this.handleChange(e)} name="managerName" value={managerName} className="form-control"/>
                                     </div>
-                                    {/* <ManagerSearch profile={profile} modalChange={(e) => this.handleChange(e)}/> */}
 
                                     <h2 className="info-header">Salary Conditions</h2>
                                     <div className=" col-6 mb-3">
                                         <label className="form-label">Base salary:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="number" name="baseSalary" defaultValue={profile.baseSalary} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="number" name="baseSalary" value={baseSalary} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Expenses:</label>
-                                        <input type="number" onChange={(e) => this.handleChange(e)} name="expenses" defaultValue={profile.expenses} className="form-control"/>
+                                        <input type="number" onChange={(e) => this.handleChange(e)} name="expenses" value={expenses} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Meal allowance:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="number" name="mealAllowance" defaultValue={profile.mealAllowance} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="number" name="mealAllowance" value={mealAllowance} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Flexible work hours:</label>
-                                        <input type="number" onChange={(e) => this.handleChange(e)} name="flexibleWorkHrs" defaultValue={profile.flexibleWorkHrs} className="form-control"/>
+                                        <input type="number" onChange={(e) => this.handleChange(e)} name="flexibleWorkHrs" value={flexibleWorkHrs} className="form-control"/>
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Comments:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="text" name="comments" defaultValue={profile.comments} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="text" name="comments" value={comments} className="form-control"/>
                                     </div>
 
                                     <h2 className="info-header">Contracts</h2>
@@ -319,7 +337,7 @@ export default class ProfessionalEditModal extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                <button onClick={() => this.clearUnsavedContracts()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button onClick={(e) => this.saveChanges(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>

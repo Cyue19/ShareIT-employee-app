@@ -34,6 +34,7 @@ export default class ProfilePage extends Component {
             const doc = snapShot.docs[0];
             console.log(doc);
             const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().userId, doc.data().permissions);
+            //try using ...doc.data() w. map
             profile.birthDate = doc.data().birthDate;
             profile.maritalStatus = doc.data().maritalStatus;
             profile.nationality = doc.data().nationality;

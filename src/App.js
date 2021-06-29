@@ -17,6 +17,7 @@ import Firebase from './firebase/Firebase';
 import Main from './components/Main';
 import ProfilePage from './components/ProfilePage';
 import Navbar from './components/Navbar';
+import Notifications from "./components/Notifications";
 
 class App extends Component {
 
@@ -60,6 +61,7 @@ class App extends Component {
             <GuardedRouteNonUser path='/forgot' exact component={ForgotPassword} user={user}/>
             <GuardedRouteUser path='/main' exact component={Main} user={user}/> 
             <GuardedRouteUser path="/profile/:userId" exact component={ProfilePage} user={user}/>
+            <GuardedRouteUser path="/mynotifications" exact component={Notifications} user={user}/>
           </BrowserRouter>
         }
       </div>

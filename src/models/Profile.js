@@ -33,7 +33,6 @@ export default class Profile {
         this.holidays = [];
         this.job = "";
         this.manager = {fullName: "", userId: ""};
-        // this.manager = {firstName: "", lastName: "", userId: ""};
         this.baseSalary = "";
         this.expenses = "";
         this.mealAllowance = "";
@@ -45,6 +44,7 @@ export default class Profile {
         this.accessEmail = "";
         this.status = "";
         this.language = "";
+        this.notifications = [];
     }
 
     static fromFirebaseDoc(doc) {

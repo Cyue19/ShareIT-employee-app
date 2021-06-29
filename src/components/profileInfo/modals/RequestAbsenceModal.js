@@ -23,9 +23,8 @@ export default class RequestAbsenceModal extends Component {
         });
     }
 
+    /** Create a new absence request */
     createRequest(e) {
-        e.preventDefault();
-
         const {type, period, periodUnit, startDate, endDate, observations} = this.state;
         const {profile} = this.props;
 
@@ -35,16 +34,20 @@ export default class RequestAbsenceModal extends Component {
             });
             return;
         }
+        console.log("variables prepared")
 
         const newRequest = {id: Date.now(), type: type, period: period + periodUnit, startDate: startDate, endDate: endDate, observations: observations, status: "pending"};
         profile.absenceRequests.push(newRequest);
+        console.log("request pushed");
 
         this.props.update(profile);
+        console.log("request saved");
 
         this.clearInputs();
     }
 
-    clearInputs() {
+    /**Clear modal inputs */
+    restoreDefault() {
         this.setState({
             type: "",
             period: "",
@@ -67,7 +70,7 @@ export default class RequestAbsenceModal extends Component {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="requestAbsenceModalLabel">Request Absence</h5>
-                                <button onClick={() => this.clearInputs()} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button onClick={() => this.restoreDefault()} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
                             <ShowIf isTrue={error}>
@@ -99,7 +102,7 @@ export default class RequestAbsenceModal extends Component {
                                         <label className="form-label">Period:</label>
 
                                         <div className="col-6 pe-0">
-                                        <input onChange={(e) => this.handleChange(e)} type="number" name="period" defaultValue={period} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="number" name="period" value={period} className="form-control"/>
                                         </div>
 
                                         <div className="col-6 ps-0">
@@ -112,22 +115,22 @@ export default class RequestAbsenceModal extends Component {
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Start date:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="date" name="startDate" defaultValue={startDate} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="date" name="startDate" value={startDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">End date:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="date" name="endDate" defaultValue={endDate} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="date" name="endDate" value={endDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Observations:</label>
-                                        <input onChange={(e) => this.handleChange(e)} type="text" name="observations" defaultValue={observations} className="form-control"/>
+                                        <input onChange={(e) => this.handleChange(e)} type="text" name="observations" value={observations} className="form-control"/>
                                     </div>
                                 </form>
                             </div>
 
                             <div className="modal-footer">
-                                <button onClick={() => this.clearInputs()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={(e) => this.createRequest(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                                <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>
                     </div>

@@ -21,7 +21,7 @@ export default class PersonalInfo extends Component {
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
                     <p>Full name: {profile.firstName} {profile.lastName}</p>
-                    <p>Birth date: </p>
+                    <p>Birth date: {profile.birthDate} </p>
                     <p>Marital status: {profile.maritalStatus}</p>
                     <p>Nationality: {profile.nationality}</p>
                 </div>
