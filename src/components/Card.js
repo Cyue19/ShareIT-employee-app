@@ -28,4 +28,5 @@ function Card({name,job,manager}) {
     )
 }
 
+
 export default Card
