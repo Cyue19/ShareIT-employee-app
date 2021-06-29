@@ -39,17 +39,17 @@ export default class Absences extends Component {
     }
 
     render() {
-        const {profile, permissions} = this.props;
+        const {profile, self} = this.props;
 
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                <ShowIf isTrue={self || profile.permissions==="HR" || profile.permissions ==="Admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#requestAbsenceModal">
                     Request
                     </button>
                 </ShowIf>
 
-                <ShowIf isTrue={permissions==="HR" || permissions ==="Admin"}>
+                <ShowIf isTrue={profile.permissions==="HR" || profile.permissions ==="Admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "79%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#editAbsenceModal">
                     Edit
                     </button>

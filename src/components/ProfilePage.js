@@ -34,7 +34,6 @@ export default class ProfilePage extends Component {
             const doc = snapShot.docs[0];
             console.log(doc);
             const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().userId, doc.data().permissions);
-            //try using ...doc.data() w. map
             profile.birthDate = doc.data().birthDate;
             profile.maritalStatus = doc.data().maritalStatus;
             profile.nationality = doc.data().nationality;
@@ -75,24 +74,15 @@ export default class ProfilePage extends Component {
             profile.permissions = doc.data().permissions;
             profile.status = doc.data().status;
             profile.language = doc.data().language;
-
-            const permissions = await this.fetchUserPermissions();
             
             this.setState({
                 profile,
                 docId: doc.id,
                 loading: false,
-                permissions
             });
         } catch(err) {
             console.log(err);
         }
-    }
-
-    async fetchUserPermissions() {
-        const snapShot = await this.db.collection("profiles").where("userId", "==", this.props.user.uid).get();
-        const doc = snapShot.docs[0];
-        return doc.data().permissions;
     }
 
     async updateProfile(profile) {
@@ -153,19 +143,19 @@ export default class ProfilePage extends Component {
 
     /**Display/return the correct profile card info tab */
     getTab() {
-        const { tab, profile, permissions } = this.state;
+        const { tab, profile } = this.state;
         const { user } = this.props;
         const self = (user.uid===this.urlId);
 
         switch (tab) {
             case 1:
-                return(<PersonalInfo update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
+                return(<PersonalInfo update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             case 2:
-                return(<ProfessionalInfo update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
+                return(<ProfessionalInfo update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             case 3:
-                return(<Absences update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
+                return(<Absences update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             case 4:
-                return(<Account update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
+                return(<Account update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             default: 
                 break;
         }
