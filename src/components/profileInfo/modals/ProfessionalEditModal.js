@@ -307,8 +307,8 @@ export default class ProfessionalEditModal extends Component {
                                                         </div>
                                                         :
                                                         <div>
-                                                            <p class="card-text">Dates: {contract.startDate.slice(8,)}/{contract.startDate.slice(5,7)}/{contract.startDate.slice(0,4)} - {contract.endDate.slice(8,)}/{contract.endDate.slice(5,7)}/{contract.endDate.slice(0,4)}</p>
-                                                            <p class="card-text">Comments: {contract.comments}</p>
+                                                            <p className="card-text">Dates: {contract.startDate.slice(8,)}/{contract.startDate.slice(5,7)}/{contract.startDate.slice(0,4)} - {contract.endDate.slice(8,)}/{contract.endDate.slice(5,7)}/{contract.endDate.slice(0,4)}</p>
+                                                            <p className="card-text">Comments: {contract.comments}</p>
                                                         </div>
                                                     }
                                                 </div>
