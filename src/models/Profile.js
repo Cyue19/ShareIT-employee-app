@@ -33,6 +33,7 @@ export default class Profile {
         this.holidays = [];
         this.job = "";
         this.manager = "";
+        // this.manager = {firstName: "", lastName: "", userId: ""};
         this.baseSalary = "";
         this.expenses = "";
         this.mealAllowance = "";

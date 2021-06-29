@@ -8,35 +8,35 @@ export default class PersonalEditModal extends Component {
 
         this.state = {
             firstName: props.profile.firstName,
-            lastName: "",
-            birthDate: "",
-            maritalStatus: "",
-            nationality: "",
-            personalEmail: "",
-            personalPhone: "",
-            line1: "",
-            line2: "",
-            zipCode: "",
-            city: "",
-            country: "",
-            contactFirstName: "",
-            contactLastName: "",
-            contactPhone: "",
-            contactRelationship: "",
-            idNum: "",
-            taxId: "",
-            ssn: "",
-            licenseNum: "",
-            carPlateNum: "",
-            dependents: "",
-            handicap: "",
-            payee: "",
-            school: "",
-            degree: "",
-            courses: "",
-            bank: "",
-            iban: "",
-            swift: ""
+            lastName: props.profile.lastName,
+            birthDate: props.profile.birthDate,
+            maritalStatus: props.profile.maritalStatus,
+            nationality: props.profile.nationality,
+            personalEmail: props.profile.personalEmail,
+            personalPhone: props.profile.personalPhone,
+            line1: props.profile.address.line1,
+            line2: props.profile.address.line2,
+            zipCode: props.profile.address.zipCode,
+            city: props.profile.address.city,
+            country: props.profile.address.country,
+            contactFirstName: props.profile.contact.firstName,
+            contactLastName: props.profile.contact.lastName,
+            contactPhone: props.profile.contact.phone,
+            contactRelationship: props.profile.contact.relationship,
+            idNum: props.profile.idNum,
+            taxId: props.profile.taxId,
+            ssn: props.profile.ssn,
+            licenseNum: props.profile.licenseNum,
+            carPlateNum: props.profile.carPlateNum,
+            dependents: props.profile.dependents,
+            handicap: props.profile.handicap,
+            payee: props.profile.payee,
+            school: props.profile.school,
+            degree: props.profile.degree,
+            courses: props.profile.courses,
+            bank: props.profile.bank,
+            iban: props.profile.iban,
+            swift: props.profile.swift,
         }
     }
 
@@ -66,7 +66,7 @@ export default class PersonalEditModal extends Component {
         this.props.profile.address.city = this.state.city;
         this.props.profile.address.country = this.state.country;
         this.props.profile.contact.firstName = this.state.contactFirstName;
-        this.props.profile.contact.fastName = this.state.contactLastName;
+        this.props.profile.contact.lastName = this.state.contactLastName;
         this.props.profile.contact.phone = this.state.contactPhone;
         this.props.profile.contact.relationship = this.state.contactRelationship;
         this.props.profile.idNum = this.state.idNum;

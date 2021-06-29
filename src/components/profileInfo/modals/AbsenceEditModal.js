@@ -6,7 +6,7 @@ export default class AbsenceEditModal extends Component {
         super(props);
 
         this.state = {
-            absencesPerYr: ""
+            absencesPerYr: props.profile.absencesPerYr
         }
     }
 

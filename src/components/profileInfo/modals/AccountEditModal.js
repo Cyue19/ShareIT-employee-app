@@ -6,10 +6,10 @@ export default class AccountEditModal extends Component {
         super(props);
 
         this.state = {
-            accessEmail: "",
-            permissions: "",
-            status: "",
-            language: "",
+            accessEmail: props.profile.accessEmail,
+            permissions: props.profile.permissions,
+            status: props.profile.status,
+            language: props.profile.language,
         }
     }
 

@@ -8,17 +8,17 @@ export default class ProfessionalEditModal extends Component {
         this.contractsCopy = JSON.parse(JSON.stringify(props.profile.contracts));
 
         this.state = {
-            collabId: "",
-            labelsAndTags: "",
-            workPhone: "",
-            workEmail: "",
-            job: "",
-            manager: "",
-            baseSalary: "",
-            expenses: "",
-            mealAllowance: "",
-            flexibleWorkHrs: "",
-            comments: "",
+            collabId: props.profile.collabId,
+            labelsAndTags: props.profile.labelsAndTags,
+            workPhone: props.profile.workPhone,
+            workEmail: props.profile.workEmail,
+            job: props.profile.job,
+            manager: props.profile.manager,
+            baseSalary: props.profile.baseSalary,
+            expenses: props.profile.expenses,
+            mealAllowance: props.profile.mealAllowance,
+            flexibleWorkHrs: props.profile.flexibleWorkHrs,
+            comments: props.profile.comments,
             title: "",
             startDate: "",
             endDate: "",
@@ -26,7 +26,7 @@ export default class ProfessionalEditModal extends Component {
             editTitle: "",
             editStartDate: "",
             editEndDate: "",
-            editComments: ""
+            editComments: "",
         }
     }
 
