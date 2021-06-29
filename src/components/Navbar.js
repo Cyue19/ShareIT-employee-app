@@ -11,7 +11,8 @@ class Navbar extends Component {
         super(props);
         this.state={
             user: props.user,
-            click: false 
+            click: false,
+            number: 0 
         }
     }
 
@@ -91,69 +92,18 @@ class Navbar extends Component {
                             {
                                 !user ?
                                     <li className="nav-item">
-                                <       Link className="nav-link" to="/register">Register</Link>
+                                        <Link className="nav-link" to="/register">Register</Link>
                                     </li>
                                 :
                                     null
                             }       
+                            <li className="nav-item mt-1 notif">
+                                <button type="button" class="btn btn-primary">Notifications <span class="badge badge-light">{this.state.number}</span></button>
+                            </li>
                         </ul>
+                        
                     </div>
                 </nav>
-                {/* <nav className="navbar mb-3" style={{width: '90%', margin: 'auto'}}>
-                    <div className="navbar-container">
-                        <Link to="/" className="navbar-brand"><img src={img1} alt="Logo" style={{width: '120px', position: 'relative', top: '8px'}} className="mb-3"/></Link>
-                        <div className='menu-icon' onClick={this.handleClick}>
-                            <i className={this.state.click ? 'fas fa-times' : 'fas fa-bars'} />
-                        </div>
-                        <ul className={this.state.click ? 'nav-menu active' : 'nav-menu'}>
-                            {
-                                user ?
-                                    <li className="nav-item">
-                                        <Link className="nav-links" to='/main'>Employees</Link>
-                                    </li>
-                                :
-                                    null
-                            }
-                            {
-                                user ?
-                                    <li className="nav-item">
-                                        <Link className="nav-links" to={url + this.props.user.$.W}>My Account</Link>
-                                    </li>
-                                :
-                                    null
-                            }
-                            {
-                                user ?
-                                    <li className="nav-item">
-                                        <Link className="nav-links" onClick={()=>this.logout()}>Log Out</Link>
-                                    </li>
-                                :
-                                    null
-                            }
-
-                            {
-                                !user ?
-                                    <li className="nav-item">
-                                        <Link className="nav-links" to="/login">Log In</Link>
-                                    </li>
-                                :
-                                    null
-                            }
-
-                            {
-                                !user ?
-                                    <li className="nav-item">
-                                        <Link className="nav-links" to="/register">Register</Link>
-                                    </li>
-                                :
-                                    null
-                            }      
-                        </ul>
-                    </div>
-                    <li className="icon nav-item">
-                        <i className="actual-icon bi bi-list"></i>
-                    </li>
-                </nav> */}
             </div>
             
          );

@@ -16,3 +16,13 @@
     transition: all 0.2s ease-out;
 }
 
+.notif {
+    position: absolute;
+    right: 0
+}
+@media only screen and (max-width: 991px) {
+  .notif {
+    position: relative;
+  }
+}
+
