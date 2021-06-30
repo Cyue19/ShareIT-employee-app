@@ -2,8 +2,20 @@ import React, { Component } from 'react';
 import ShowIf from "../ShowIf";
 import AbsenceEditModal from "./modals/AbsenceEditModal";
 import RequestAbsenceModal from "./modals/RequestAbsenceModal";
+import EditRequestModal from "./modals/EditRequestModal";
+
+import Firebase from "../../firebase/Firebase";
 
 export default class Absences extends Component {
+
+    constructor(props) {
+        super(props);
+        this.db = Firebase.instance().db;
+
+        this.state = {
+            currRequest: ""
+        }
+    }
 
     getStatusLabel(status) {
         switch (status) {
@@ -31,15 +43,33 @@ export default class Absences extends Component {
         }
     }
 
+    setRequest(request) {
+        this.setState({
+            currRequest: request
+        });
+    }
+
     onRemoveAbsence(id) {
         const {profile} = this.props;
         const updatedAbsences = profile.absenceRequests.filter(absence => absence.id !== id);
         profile.absenceRequests = updatedAbsences;
+        this.sendEditNotifications(profile.manager.fullName + " has deleted an absence request.");
         this.props.update(profile);
+    }
+
+    async sendEditNotifications(message) {
+        const {profile} = this.props;
+        const updatedNotifs = profile.notifications;
+        updatedNotifs.push({message: message, notifId: Date.now(), recipientId: profile.userId});
+        
+        await this.db.collection("profiles").doc(profile.userId).update({
+            notifications: updatedNotifs,
+        });
     }
 
     render() {
         const {profile, self} = this.props;
+        const {currRequest} = this.state;
 
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
@@ -80,7 +110,7 @@ export default class Absences extends Component {
                                 <td>{request.period}</td>
                                 <td>{request.observations}</td>
                                 <td>
-                                    <button style={{padding: "2px 6px"}} type="button" className="btn btn-primary mx-1">
+                                    <button onClick={(request) => this.setRequest(request)} style={{padding: "2px 6px"}} type="button" className="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#editRequestModal">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg>
@@ -92,6 +122,7 @@ export default class Absences extends Component {
                                         </svg>
                                     </button>
                                 </td>
+                                <EditRequestModal request={request} profile={this.props.profile} update={(profile) => this.props.update(profile)} sendNotif={(message) => this.sendEditNotifications(message)}/>
                             </tr>
                         )}
                     </tbody>

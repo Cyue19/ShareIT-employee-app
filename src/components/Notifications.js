@@ -23,8 +23,8 @@ export default class Notifications extends Component {
         }
     }
 
-    viewUserProfile(requesteeId) {
-        const url = "/profile/" + requesteeId;
+    viewUserProfile(recipientId) {
+        const url = "/profile/" + recipientId;
         this.props.history.push(url);
     }
 
@@ -54,7 +54,7 @@ export default class Notifications extends Component {
                         <div className="card-body">
                             {notif.message}
                             <div className="mt-2 pt-2 border-top">
-                                <button onClick={() => this.viewUserProfile(notif.employeeId)} type="button" className="btn btn-primary btn-sm">View profile</button>
+                                <button onClick={() => this.viewUserProfile(notif.recipientId)} type="button" className="btn btn-primary btn-sm">View profile</button>
                                 <button onClick={() => this.deleteNotification(notif.notifId)} type="button" className="btn btn-secondary btn-sm">Delete</button>
                             </div>
                         </div>
