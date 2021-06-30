@@ -42,7 +42,6 @@ export default class AccountEditModal extends Component {
     }
     
     render() {
-        const {profile} = this.props;
         const {accessEmail, permissions, status, language} = this.state;
 
         return (

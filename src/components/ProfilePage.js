@@ -31,6 +31,7 @@ export default class ProfilePage extends Component {
     async componentDidMount() {
         try {
             const snapShot = await this.db.collection("profiles").where("userId", "==", this.urlId).get();
+            console.log(snapShot);
             const doc = snapShot.docs[0];
             console.log(doc);
             const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().userId, doc.data().permissions);

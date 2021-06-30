@@ -34,7 +34,6 @@ export default class AbsenceEditModal extends Component {
     }
 
     render() {
-        const {profile} = this.props;
         const {absencesPerYr} = this.state;
 
         return (

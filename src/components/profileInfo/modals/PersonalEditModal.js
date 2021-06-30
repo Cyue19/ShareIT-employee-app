@@ -119,7 +119,6 @@ export default class PersonalEditModal extends Component {
     }
     
     render() {
-        const { profile } = this.props;
         const { firstName, lastName, birthDate, maritalStatus, nationality, personalEmail, personalPhone, line1, line2, zipCode, city, country, contactFirstName, contactLastName, contactPhone, 
         contactRelationship, idNum, taxId, ssn, licenseNum, carPlateNum, dependents, handicap, payee, school, degree, courses, bank, iban, swift} = this.state;
         return (

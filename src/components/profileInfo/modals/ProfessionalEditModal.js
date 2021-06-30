@@ -160,7 +160,6 @@ export default class ProfessionalEditModal extends Component {
     }
 
     render() {
-        const {profile} = this.props;
         const {collabId, labelsAndTags, workPhone, workEmail, job, managerName, baseSalary, expenses, mealAllowance, flexibleWorkHrs, comments, title, startDate, endDate, contractComments, editTitle} = this.state;
 
         return (

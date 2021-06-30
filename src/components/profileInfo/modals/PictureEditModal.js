@@ -77,8 +77,6 @@ export default class PictureEditModal extends Component {
     }
     
     render() {
-        const {profile} = this.props;
-
         return (
             <div>
                 <div className="modal fade" id="pictureModal" aria-labelledby="pictureModalLabel" aria-hidden="true">

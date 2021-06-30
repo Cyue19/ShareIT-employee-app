@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import ShowIf from "../../ShowIf";
+import Firebase from "../../../firebase/Firebase";
 
 export default class RequestAbsenceModal extends Component {
 
     constructor(props) {
         super(props);
+        this.db = Firebase.instance().db;
 
         this.state = {
             type: "",
@@ -34,16 +36,33 @@ export default class RequestAbsenceModal extends Component {
             });
             return;
         }
-        console.log("variables prepared")
 
         const newRequest = {id: Date.now(), type: type, period: period + periodUnit, startDate: startDate, endDate: endDate, observations: observations, status: "pending"};
         profile.absenceRequests.push(newRequest);
-        console.log("request pushed");
 
         this.props.update(profile);
-        console.log("request saved");
+        this.sendRequestNotification();
 
-        this.clearInputs();
+        this.restoreDefault();
+    }
+
+    /**Sends notification of absence request to manager */
+    async sendRequestNotification() {
+        try {
+            const {profile} = this.props;
+            const managerId = profile.manager.userId;
+            const message = profile.firstName + " " + profile.lastName + " has requested an absence";
+            const newNotif = {message: message, notifId: Date.now(), employeeId: profile.userId}
+            const doc = await this.db.collection("profiles").doc(managerId).get();
+            const updatedNotifs = doc.data().notifications;
+            updatedNotifs.push(newNotif);
+
+            await this.db.collection("profiles").doc(managerId).update({
+                notifications: updatedNotifs,
+            });
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     /**Clear modal inputs */
