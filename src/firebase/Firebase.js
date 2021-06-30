@@ -30,6 +30,7 @@ class Firebase {
         this.auth = this.firebase.auth();
         this.storage = this.firebase.storage();
     }
+
 }
 
 export default Firebase; 

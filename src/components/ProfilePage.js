@@ -7,6 +7,7 @@ import Absences from "./profileInfo/Absences";
 import Account from "./profileInfo/Account";
 import Profile from "../models/Profile";
 import ProfileBar from "./profileInfo/ProfileBar";
+import ResetPassword from './profileInfo/ResetPassword';
 
 import LoadSpinner from "./LoadSpinner";
 
@@ -33,7 +34,6 @@ export default class ProfilePage extends Component {
             const snapShot = await this.db.collection("profiles").where("userId", "==", this.urlId).get();
             console.log(snapShot);
             const doc = snapShot.docs[0];
-            console.log(doc);
             const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().userId, doc.data().permissions);
             profile.birthDate = doc.data().birthDate;
             profile.maritalStatus = doc.data().maritalStatus;
@@ -157,6 +157,8 @@ export default class ProfilePage extends Component {
                 return(<Absences update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
             case 4:
                 return(<Account update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>);
+            case 5:
+                return(<ResetPassword update={(profile) => this.updateProfile(profile)} self={self} profile={profile}/>)
             default: 
                 break;
         }
@@ -196,9 +198,18 @@ export default class ProfilePage extends Component {
                                 <li onClick={() => this.changeTab(4)} className="nav-item">
                                     <p className={tab===4 ? "nav-link active" : "nav-link"}>Account</p>
                                 </li>
+                                {
+                                    user.uid===this.urlId ?
+                                        <li onClick={() => this.changeTab(5)} className="nav-item">
+                                            <p className={tab===5 ? "nav-link active" : "nav-link"}>Reset Password</p>
+                                        </li>
+                                    :
+                                        null
+                                }
+                                
                             </ul>
 
-                            <div style={{position: "absolute", width: "100%", top: "50%", paddingBottom: "30px"}}>
+                            <div style={{position: "relative", width: "100%", top: "50%", paddingBottom: "30px"}}>
                                 {this.getTab()}
                             </div>
                         </div>

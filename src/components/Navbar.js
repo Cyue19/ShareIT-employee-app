@@ -10,7 +10,9 @@ class Navbar extends Component {
     constructor(props) {
         super(props);
         this.state={
-            user: props.user
+            user: props.user,
+            click: false,
+            number: 0 
         }
     }
 
@@ -28,16 +30,26 @@ class Navbar extends Component {
         this.props.history.push(url);
     } 
 
-
+    handleClick() {
+        this.setState({
+            click: !this.state.click
+        })
+    }
+    closeMobileMenu() {
+        this.setState({
+            click: false 
+        })
+    }
+    
     render() {
         const { user } = this.props;
         const url = '/profile/';
 
         return (
-            <div>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light ms-3">
+            <div style={{width: '90%', margin: 'auto'}}>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <Link to="/" className="navbar-brand"><img src={img1} alt="Logo" style={{width: '120px', position: 'relative', top: '8px'}} className="mb-3"/></Link>
-                    <button className="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -80,16 +92,18 @@ class Navbar extends Component {
                             {
                                 !user ?
                                     <li className="nav-item">
-                                <       Link className="nav-link" to="/register">Register</Link>
+                                        <Link className="nav-link" to="/register">Register</Link>
                                     </li>
                                 :
                                     null
                             }       
+                            <li className="nav-item mt-1 notif">
+                                <button type="button" class="btn btn-primary">Notifications <span class="badge badge-light">{this.state.number}</span></button>
+                            </li>
                         </ul>
+                        
                     </div>
-                    
-               
-            </nav>
+                </nav>
             </div>
             
          );
