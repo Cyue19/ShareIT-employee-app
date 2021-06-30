@@ -20,10 +20,10 @@ export default class PersonalInfo extends Component {
                 <h3 className="info-header mx-4 col">IDENTITY</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
-                    <p>Full name: {profile.firstName} {profile.lastName}</p>
-                    <p>Birth date: {profile.birthDate} </p>
-                    <p>Marital status: {profile.maritalStatus}</p>
-                    <p>Nationality: {profile.nationality}</p>
+                    <p><b>Full name:</b> {profile.firstName} {profile.lastName}</p>
+                    <p><b>Birth date:</b> {profile.birthDate} </p>
+                    <p><b>Marital status:</b> {profile.maritalStatus}</p>
+                    <p><b>Nationality:</b> {profile.nationality}</p>
                 </div>
 
                 <h3 className="info-header mx-4">PERSONAL CONTACT INFORMATION</h3>

@@ -10,7 +10,7 @@ export default class Profile {
         this.nationality = "";
         this.personalEmail = "";
         this.personalPhone = "";
-        this.address = {line1: "", line2: "", city: "", zipCode: "", country: ""};
+        this.address = {line1: "", line2: "", city: "", zipCode: "", region: "", country: ""};
         this.contact = {firstName: "", lastName: "", phone: "", relationship: ""};
         this.idNum = "";
         this.taxId = "";
@@ -31,6 +31,9 @@ export default class Profile {
         this.workPhone = "";
         this.workEmail = "";
         this.holidays = [];
+        this.country = "";
+        this.region = "";
+        this.holidayDate = "";
         this.job = "";
         this.manager = {fullName: "", userId: ""};
         this.baseSalary = "";

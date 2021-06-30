@@ -152,11 +152,11 @@ export default class PersonalEditModal extends Component {
                                         <label className="form-label">Marital status:</label>
                                         <select value={maritalStatus} onChange={(e) => this.onChange(e)} name="maritalStatus" className="form-select">
                                             <option value="">Choose...</option>
-                                            <option value="single">Single</option>
-                                            <option value="married">Married</option>
-                                            <option value="divorced">Divorced</option>
-                                            <option value="separated">Separated</option>
-                                            <option value="widowed">Widowed</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Divorced">Divorced</option>
+                                            <option value="Separated">Separated</option>
+                                            <option value="Widowed">Widowed</option>
                                         </select>
                                     </div>
                                     <div className="col-4 mb-3">

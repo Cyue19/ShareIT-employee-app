@@ -60,7 +60,9 @@ export default class ProfilePage extends Component {
             profile.labelsAndTags = doc.data().labelsAndTags;
             profile.workPhone = doc.data().workPhone;
             profile.workEmail = doc.data().workEmail;
-            profile.holidays = doc.data().holidays;
+            profile.country = doc.data().country;
+            profile.region = doc.data().region;
+            profile.holidayDate = doc.data().holidayDate;
             profile.job = doc.data().job;
             profile.manager = doc.data().manager;
             profile.baseSalary = doc.data().baseSalary;
@@ -126,7 +128,9 @@ export default class ProfilePage extends Component {
                 labelsAndTags: profile.labelsAndTags,
                 workPhone: profile.workPhone,
                 workEmail: profile.workEmail,
-                holidays: profile.holidays,
+                country: profile.country,
+                region: profile.region,
+                holidayDate: profile.holidayDate,
                 job: profile.job,
                 manager: profile.manager,
                 baseSalary: profile.baseSalary,

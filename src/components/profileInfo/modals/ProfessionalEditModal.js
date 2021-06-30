@@ -15,6 +15,9 @@ export default class ProfessionalEditModal extends Component {
             workPhone: props.profile.workPhone,
             workEmail: props.profile.workEmail,
             job: props.profile.job,
+            country: props.profile.country,
+            region: props.profile.region,
+            holidayDate: props.profile.holidayDate,
             managerName: props.profile.manager.fullName,
             managerId: props.profile.manager.userId,
             baseSalary: props.profile.baseSalary,
@@ -120,6 +123,9 @@ export default class ProfessionalEditModal extends Component {
             labelsAndTags: this.props.profile.labelsAndTags,
             workPhone: this.props.profile.workPhone,
             workEmail: this.props.profile.workEmail,
+            country: this.props.profile.country,
+            region: this.props.profile.region,
+            holidayDate: this.props.profile.holidayDate,
             job: this.props.profile.job,
             managerName: this.props.profile.manager.fullName,
             managerId: this.props.profile.manager.userId,
@@ -149,6 +155,9 @@ export default class ProfessionalEditModal extends Component {
         profile.labelsAndTags = this.state.labelsAndTags;
         profile.workPhone = this.state.workPhone;
         profile.workEmail = this.state.workEmail;
+        profile.country = this.state.country;
+        profile.region = this.state.region;
+        profile.holidayDate = this.state.holidayDate;
         profile.job = this.state.job;
         profile.manager = {fullName: this.state.managerName, userId: this.state.managerId};
         profile.baseSalary = this.state.baseSalary;
@@ -163,7 +172,7 @@ export default class ProfessionalEditModal extends Component {
     }
 
     render() {
-        const {collabId, labelsAndTags, workPhone, workEmail, job, managerName, baseSalary, expenses, mealAllowance, flexibleWorkHrs, comments, title, startDate, endDate, contractComments, editTitle} = this.state;
+        const {collabId, labelsAndTags, workPhone, workEmail, country, region, holidayDate, job, managerName, baseSalary, expenses, mealAllowance, flexibleWorkHrs, comments, title, startDate, endDate, contractComments, editTitle} = this.state;
 
         return (
             <div>
@@ -203,6 +212,18 @@ export default class ProfessionalEditModal extends Component {
                                     </div>
 
                                     <h2 className="info-header">Covered Holidays</h2>
+                                    <div className="col-6 mb-3">
+                                        <label className="form-label">Country:</label>
+                                        <input onChange={(e) => this.handleChange(e)} type="text" name="country" value={country} className="form-control"/>
+                                    </div>
+                                    <div className="col-6 mb-3">
+                                        <label className="form-label">Region:</label>
+                                        <input onChange={(e) => this.handleChange(e)} type="text" name="region" value={region} className="form-control"/>
+                                    </div>
+                                    <div className="col-6 mb-3">
+                                        <label className="form-label">Date:</label>
+                                        <input onChange={(e) => this.handleChange(e)} type="date" name="holidayDate" value={holidayDate} className="form-control"/>
+                                    </div>
 
                                     <h2 className="info-header">Job Details</h2>
                                     <div className="mb-3">

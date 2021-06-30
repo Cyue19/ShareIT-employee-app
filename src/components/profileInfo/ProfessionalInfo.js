@@ -27,8 +27,9 @@ export default class ProfessionalInfo extends Component {
                 <h3 className="info-header mx-4">COVERED HOLIDAYS</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
-                    <p>Country: </p>
-                    <p>Region: </p>
+                    <p>Country: {profile.country}</p>
+                    <p>Region: {profile.region}</p>
+                    <p>Date: {profile.holidayDate}</p>
                 </div>
 
                 <h3 className="info-header mx-4">JOB DETAILS</h3>
