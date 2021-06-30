@@ -5,11 +5,11 @@ import ProfessionalEditModal from "./modals/ProfessionalEditModal";
 export default class ProfessionalInfo extends Component {
 
     render() {
-        const { profile, self } = this.props;
+        const { profile, self, permissions } = this.props;
 
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative", boxShadowTop: "none"}}>
-                <ShowIf isTrue={self || profile.permissions==="HR" || profile.permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#profInfoModal">
                     Edit
                     </button>
@@ -38,7 +38,7 @@ export default class ProfessionalInfo extends Component {
                     <p>Manager: {profile.manager.fullName}</p>
                 </div>
 
-                <ShowIf isTrue={self || profile.permissions==="HR" || profile.permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                 <h3 className="info-header mx-4">SALARY CONDITIONS</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>

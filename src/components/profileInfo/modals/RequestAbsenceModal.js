@@ -37,7 +37,7 @@ export default class RequestAbsenceModal extends Component {
             return;
         }
 
-        const newRequest = {id: Date.now(), type: type, period: period + periodUnit, startDate: startDate, endDate: endDate, observations: observations, status: "pending"};
+        const newRequest = {id: Date.now(), type: type, period: period, periodUnit: periodUnit, startDate: startDate, endDate: endDate, observations: observations, status: "pending"};
         profile.absenceRequests.push(newRequest);
 
         this.props.update(profile);

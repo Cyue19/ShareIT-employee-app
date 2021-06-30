@@ -6,12 +6,12 @@ import PersonalEditModal from "./modals/PersonalEditModal";
 export default class PersonalInfo extends Component {
 
     render() {
-        const { profile, self } = this.props;
+        const { profile, self, permissions } = this.props;
 
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
 
-                <ShowIf isTrue={self || profile.permissions==="HR" || profile.permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#personalInfoModal">
                     Edit
                     </button>
@@ -31,7 +31,7 @@ export default class PersonalInfo extends Component {
                     <hr className="profile-hr"/>
                     <p>Personal email: {profile.personalEmail}</p>
                     <p>Personal phone: {profile.personalPhone}</p>
-                    <p>Address: {profile.address.line1} {profile.address.line2} {profile.address.zipCode} {profile.address.city} {profile.address.country}</p>
+                    <p>Address: {profile.address.line1} {profile.address.line2} {profile.address.city}, {profile.address.country} {profile.address.zipCode}</p>
                 </div>
 
                 <h3 className="info-header mx-4">EMERGENCY CONTACT</h3>
@@ -42,7 +42,7 @@ export default class PersonalInfo extends Component {
                     <p>Relationship: {profile.contact.relationship}</p>
                 </div>
 
-                <ShowIf isTrue={self || profile.permissions==="HR" || profile.permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                 <h3 className="info-header mx-4">IDENTIFICATION</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>

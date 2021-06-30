@@ -83,7 +83,7 @@ export default class PersonalEditModal extends Component {
 
     saveChanges(e) {
         e.preventDefault();
-        
+                
         this.props.profile.firstName = this.state.firstName;
         this.props.profile.lastName = this.state.lastName;
         this.props.profile.birthDate = this.state.birthDate;

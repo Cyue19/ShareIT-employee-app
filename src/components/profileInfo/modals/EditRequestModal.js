@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Firebase from "../../../firebase/Firebase";
 
 export default class EditRequestModal extends Component {
     constructor(props) {
         super(props);
+        this.db = Firebase.instance().db;
 
         this.state = {
             type: props.request.type,
@@ -11,9 +13,9 @@ export default class EditRequestModal extends Component {
             startDate: props.request.startDate,
             endDate: props.request.endDate,
             observations: props.request.observations,
+            status: props.request.status,
             error: "",
         }
-        console.log(this.state);
     }
 
     handleChange(e) {
@@ -30,13 +32,13 @@ export default class EditRequestModal extends Component {
             periodUnit: request.periodUnit,
             startDate: request.startDate,
             endDate: request.endDate,
+            status: request.status,
             observations: request.observations,
             error: "",
         })
     }
 
     saveChanges(e) {
-        e.preventDefault();
         const {profile, request} = this.props;
 
         request.type = this.state.type;
@@ -44,17 +46,17 @@ export default class EditRequestModal extends Component {
         request.periodUnit = this.state.periodUnit;
         request.startDate = this.state.startDate;
         request.endDate = this.state.endDate;
+        request.status = this.state.status;
         request.observations = this.state.observations;
 
         const updatedRequests = profile.absenceRequests.map(req => req.id !== request.id ? req : request);
         profile.absenceRequests = updatedRequests;
 
-        this.props.sendNotif(profile.manager.fullName + " has edited an absence request.");
-        this.props.update(profile);
+        this.props.onUpdate(profile);
     }
 
     render() {
-        const { type, period, periodUnit, startDate, endDate, observations, error } = this.props;
+        const { type, period, periodUnit, startDate, endDate, status, observations, error } = this.state;
 
         return (
             <div className="modal fade" id="editRequestModal" aria-labelledby="editRequestModalLabel" aria-hidden="true">
@@ -112,6 +114,14 @@ export default class EditRequestModal extends Component {
                                         <label className="form-label">End date:</label>
                                         <input onChange={(e) => this.handleChange(e)} type="date" name="endDate" value={endDate} className="form-control"/>
                                     </div>
+                                    <div className="col-6 mb-3">
+                                        <label className="form-label">Status:</label>
+                                        <select value={status} onChange={(e) => this.handleChange(e)} name="status" className="form-select">
+                                            <option value="pending">Pending</option>
+                                            <option value="success">Success</option>
+                                            <option value="canceled">Canceled</option>
+                                        </select>
+                                        </div>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Observations:</label>
                                         <input onChange={(e) => this.handleChange(e)} type="text" name="observations" value={observations} className="form-control"/>

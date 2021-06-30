@@ -29,6 +29,7 @@ class App extends Component {
     this.state={
       user: null,
       loading: true,
+      permissions: ""
     }
   }
 

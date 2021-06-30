@@ -94,7 +94,10 @@ export default class ProfessionalEditModal extends Component {
             this.contractsCopy = updatedContracts;
         } else {
             this.setState({
-                editTitle: contract.title
+                editTitle: contract.title,
+                editStartDate: contract.startDate,
+                editEndDate: contract.endDate,
+                editComments: contract.comments
             });
         }
     }
@@ -254,15 +257,15 @@ export default class ProfessionalEditModal extends Component {
                                                     </div>
                                                     <div className="mb-3 col-4">
                                                         <label className="form-label">Start date:</label>
-                                                        <input type="date" onChange={(e) => this.handleChange(e)} name="startDate" defaultValue={startDate} className="form-control"/>
+                                                        <input type="date" onChange={(e) => this.handleChange(e)} name="startDate" value={startDate} className="form-control"/>
                                                     </div>
                                                     <div className="mb-3 col-4">
                                                         <label className="form-label">End date:</label>
-                                                        <input type="date" onChange={(e) => this.handleChange(e)} name="endDate" defaultValue={endDate} className="form-control"/>
+                                                        <input type="date" onChange={(e) => this.handleChange(e)} name="endDate" value={endDate} className="form-control"/>
                                                     </div>
                                                     <div className="mb-3">
                                                         <label className="form-label">Comments:</label>
-                                                        <input onChange={(e) => this.handleChange(e)} type="text" name="contractComments" defaultValue={contractComments} className="form-control"/>
+                                                        <input onChange={(e) => this.handleChange(e)} type="text" name="contractComments" value={contractComments} className="form-control"/>
                                                     </div>
 
                                                     <button onClick={() => this.onAddContract()} type="button" className="btn btn-primary">Add</button>
