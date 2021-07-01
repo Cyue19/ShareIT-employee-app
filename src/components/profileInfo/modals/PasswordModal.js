@@ -86,7 +86,7 @@ export default class PasswordModal extends Component {
                             </div>
                             <p className="ms-3" style={{color: 'blue'}} id="success"></p>
                             <ShowIf isTrue={this.state.error}>
-                                <div class="alert alert-danger" role="alert">
+                                <div className="alert alert-danger" role="alert">
                                     {error}
                                 </div>
                             </ShowIf>

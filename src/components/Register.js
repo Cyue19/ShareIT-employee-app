@@ -79,7 +79,6 @@ export default class Register extends Component {
             return;
         }
 
-        console.log(this.state.accessEmail);
         try {
             const userCredential = await this.auth.createUserWithEmailAndPassword(this.state.accessEmail, this.state.password);
             const picUrl = await this.storage.ref().child("images/default_profile_pic.jpg").getDownloadURL();

@@ -100,7 +100,7 @@ class Navbar extends Component {
                                     null
                             }       
                             <li className="nav-item mt-1 notif">
-                                <button type="button" class="btn btn-primary">Notifications <span class="badge badge-light">{this.state.number}</span></button>
+                                <button type="button" className="btn btn-primary">Notifications <span className="badge badge-light">{this.state.number}</span></button>
                             </li>
                         </ul>
                         
