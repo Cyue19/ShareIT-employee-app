@@ -13,12 +13,13 @@ export default class Main extends Component {
             fontSize: "x-large",
             
         }
+        //ordering the employee cards in alphabetical order 
 
-        compotentDidMount(){
-            const myData = this.state.contacts
-            .sort((a, b) => a.name.localeCompare(b.name))
-            map((item, i) => <List key={i} data={item} />);
-        };
+        //compotentDidMount(){
+         //   const myData = this.state.contacts
+           // .sort((a, b) => a.name.localeCompare(b.name))
+           // map((item, i) => <List key={i} data={item} />);
+        //};
 
 
         return (
@@ -26,7 +27,7 @@ export default class Main extends Component {
                 <h1 className ="h3 mb-3 text-center" style={styleBackground}>Employees</h1>
                 <ul> 
                     {
-                        this.state.contacts.map((items, i) => <List key={i} data={item} />)
+                        //this.state.contacts.map((items, i) => <List key={i} data={item} />)
                     }
                 </ul>
 
