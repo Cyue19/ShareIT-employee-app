@@ -24,7 +24,6 @@ export default class ProfilePage extends Component {
             tab: 1,
             profile: null,
             loading: true,
-            docId: null,
             permissions: null
         }
     }
@@ -33,8 +32,10 @@ export default class ProfilePage extends Component {
     async componentDidMount() {
         try {
             const snapShot = await this.db.collection("profiles").where("userId", "==", this.urlId).get();
+            console.log(snapShot);
             const doc = snapShot.docs[0];
-            const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().userId, doc.data().permissions, doc.data().accessEmail);
+            const profile = new Profile(doc.data().firstName, doc.data().lastName, doc.data().picture, doc.data().userId, doc.data().permissions);
+            profile.birthDate = doc.data().birthDate;
             profile.maritalStatus = doc.data().maritalStatus;
             profile.nationality = doc.data().nationality;
             profile.personalEmail = doc.data().personalEmail;
@@ -49,6 +50,9 @@ export default class ProfilePage extends Component {
             profile.dependents = doc.data().dependents;
             profile.handicap = doc.data().handicap;
             profile.payee = doc.data().payee;
+            profile.degree = doc.data().degree;
+            profile.school = doc.data().school;
+            profile.courses = doc.data().courses;
             profile.bank = doc.data().bank;
             profile.iban = doc.data().iban;
             profile.swift = doc.data().swift;
@@ -56,7 +60,9 @@ export default class ProfilePage extends Component {
             profile.labelsAndTags = doc.data().labelsAndTags;
             profile.workPhone = doc.data().workPhone;
             profile.workEmail = doc.data().workEmail;
-            profile.holidays = doc.data().holidays;
+            profile.country = doc.data().country;
+            profile.region = doc.data().region;
+            profile.holidayDate = doc.data().holidayDate;
             profile.job = doc.data().job;
             profile.manager = doc.data().manager;
             profile.baseSalary = doc.data().baseSalary;
@@ -71,7 +77,7 @@ export default class ProfilePage extends Component {
             profile.permissions = doc.data().permissions;
             profile.status = doc.data().status;
             profile.language = doc.data().language;
-
+            
             const permissions = await this.fetchUserPermissions();
             
             this.setState({
@@ -93,10 +99,11 @@ export default class ProfilePage extends Component {
 
     async updateProfile(profile) {
         try {
-            await this.db.collection("profiles").doc(this.state.docId).update({
+            await this.db.collection("profiles").doc(profile.userId).update({
                 firstName: profile.firstName,
                 lastName: profile.lastName,
                 picture: profile.picture,
+                birthDate: profile.birthDate,
                 maritalStatus: profile.maritalStatus,
                 nationality: profile.nationality,
                 personalEmail: profile.personalEmail,
@@ -111,6 +118,9 @@ export default class ProfilePage extends Component {
                 dependents: profile.dependents,
                 handicap: profile.handicap,
                 payee: profile.payee,
+                school: profile.school,
+                degree: profile.degree,
+                courses: profile.courses,
                 bank: profile.bank,
                 iban: profile.iban,
                 swift: profile.swift,
@@ -118,7 +128,9 @@ export default class ProfilePage extends Component {
                 labelsAndTags: profile.labelsAndTags,
                 workPhone: profile.workPhone,
                 workEmail: profile.workEmail,
-                holidays: profile.holidays,
+                country: profile.country,
+                region: profile.region,
+                holidayDate: profile.holidayDate,
                 job: profile.job,
                 manager: profile.manager,
                 baseSalary: profile.baseSalary,
@@ -150,15 +162,15 @@ export default class ProfilePage extends Component {
 
         switch (tab) {
             case 1:
-                return(<PersonalInfo update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
+                return(<PersonalInfo update={(profile) => this.updateProfile(profile)} permissions={permissions} self={self} profile={profile}/>);
             case 2:
-                return(<ProfessionalInfo update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
+                return(<ProfessionalInfo update={(profile) => this.updateProfile(profile)} permissions={permissions} self={self} profile={profile}/>);
             case 3:
-                return(<Absences update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
+                return(<Absences update={(profile) => this.updateProfile(profile)} permissions={permissions} self={self} profile={profile}/>);
             case 4:
-                return(<Account update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>);
+                return(<Account update={(profile) => this.updateProfile(profile)} permissions={permissions} self={self} profile={profile}/>);
             case 5:
-                return(<ResetPassword update={(profile) => this.updateProfile(profile)} self={self} permissions={permissions} profile={profile}/>)
+                return(<ResetPassword update={(profile) => this.updateProfile(profile)} permissions={permissions} self={self} profile={profile}/>)
             default: 
                 break;
         }
@@ -182,7 +194,7 @@ export default class ProfilePage extends Component {
             <div className="pb-3" style={{position: "relative"}}>
 
                     <LoadSpinner loading={loading}>
-                        <ProfileBar self={user.uid===this.urlId} profile={profile}/>   
+                        <ProfileBar update={(profile) => this.updateProfile(profile)} self={user.uid===this.urlId} profile={profile}/>   
 
                         <div style={{width: "90%", margin: "auto", position: "relative"}}>
                             <ul className="nav nav-tabs">

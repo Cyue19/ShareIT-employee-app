@@ -5,11 +5,12 @@ export default class Profile {
         this.firstName = firstName;
         this.lastName = lastName;
         this.picture = picUrl;
+        this.birthDate = "";
         this.maritalStatus = "";
         this.nationality = "";
         this.personalEmail = "";
         this.personalPhone = "";
-        this.address = "";
+        this.address = {line1: "", line2: "", city: "", zipCode: "", region: "", country: ""};
         this.contact = {firstName: "", lastName: "", phone: "", relationship: ""};
         this.idNum = "";
         this.taxId = "";
@@ -19,17 +20,22 @@ export default class Profile {
         this.dependents = "";
         this.handicap = "";
         this.payee = "";
+        this.degree = "";
+        this.school = "";
+        this.courses = [];
         this.bank = "";
         this.iban = "";
         this.swift = "";
-        this.courses = [];
         this.collabId = "";
         this.labelsAndTags= "";
         this.workPhone = "";
         this.workEmail = "";
         this.holidays = [];
+        this.country = "";
+        this.region = "";
+        this.holidayDate = "";
         this.job = "";
-        this.manager = "";
+        this.manager = {fullName: "", userId: ""};
         this.baseSalary = "";
         this.expenses = "";
         this.mealAllowance = "";
@@ -41,6 +47,8 @@ export default class Profile {
         this.accessEmail = accessEmail;
         this.status = "";
         this.language = "";
+        this.notifications = [];
+        this.newCount = 0;
     }
 
     static fromFirebaseDoc(doc) {

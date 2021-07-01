@@ -17,6 +17,7 @@ import Firebase from './firebase/Firebase';
 import Main from './components/Main';
 import ProfilePage from './components/ProfilePage';
 import Navbar from './components/Navbar';
+import Notifications from "./components/Notifications";
 
 class App extends Component {
 
@@ -28,6 +29,8 @@ class App extends Component {
     this.state={
       user: null,
       loading: true,
+      permissions: "",
+      newNotifs: 0
     }
   }
 
@@ -41,7 +44,23 @@ class App extends Component {
         user,
         loading: false
       });
+
+      if (this.state.user) {
+        this.getMyNotifs(this.state.user.uid);
+      }
     });
+  }
+
+  async getMyNotifs(id) {
+    try {
+      const doc = await this.db.collection("profiles").doc(id).get();
+      this.setState({
+        newNotifs: doc.data().newCount
+      });
+      console.log(this.state.newNotifs);
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   render() {
@@ -53,13 +72,15 @@ class App extends Component {
             <div></div>
           :
           <BrowserRouter>
-            <Navbar user={user}/>
+            {console.log("state", this.state.newNotifs)}
+            <Navbar new={this.state.newNotifs} user={user}/>
             <GuardedRouteNonUser path='/login' exact component={Login} user={user}/>
             <GuardedRouteNonUser path="/register" exact component={Register} user={user}/>
             <GuardedRouteNonUser path="/" exact component={Home} user={user}/>
             <GuardedRouteNonUser path='/forgot' exact component={ForgotPassword} user={user}/>
             <GuardedRouteUser path='/main' exact component={Main} user={user}/> 
             <GuardedRouteUser path="/profile/:userId" exact component={ProfilePage} user={user}/>
+            <GuardedRouteUser path="/mynotifications" exact component={Notifications} user={user}/>
           </BrowserRouter>
         }
       </div>

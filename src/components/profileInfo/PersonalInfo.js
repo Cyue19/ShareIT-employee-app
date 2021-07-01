@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
 import ShowIf from "../ShowIf";
-import PersonalEditModal from "./PersonalEditModal";
+import PersonalEditModal from "./modals/PersonalEditModal";
 
 export default class PersonalInfo extends Component {
 
     render() {
-        const { profile, permissions } = this.props;
+        const { profile, self, permissions } = this.props;
 
         return (
-            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative", boxShadowTop: "none"}}>
+            <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
 
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#personalInfoModal">
                     Edit
                     </button>
@@ -20,10 +20,10 @@ export default class PersonalInfo extends Component {
                 <h3 className="info-header mx-4 col">IDENTITY</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
-                    <p>Full name: {profile.firstName} {profile.lastName}</p>
-                    <p>Birth date: </p>
-                    <p>Marital status: {profile.maritalStatus}</p>
-                    <p>Nationality: {profile.nationality}</p>
+                    <p><b>Full name:</b> {profile.firstName} {profile.lastName}</p>
+                    <p><b>Birth date:</b> {profile.birthDate} </p>
+                    <p><b>Marital status:</b> {profile.maritalStatus}</p>
+                    <p><b>Nationality:</b> {profile.nationality}</p>
                 </div>
 
                 <h3 className="info-header mx-4">PERSONAL CONTACT INFORMATION</h3>
@@ -31,7 +31,7 @@ export default class PersonalInfo extends Component {
                     <hr className="profile-hr"/>
                     <p>Personal email: {profile.personalEmail}</p>
                     <p>Personal phone: {profile.personalPhone}</p>
-                    <p>Address: {profile.address}</p>
+                    <p>Address: {profile.address.line1} {profile.address.line2} {profile.address.city}, {profile.address.country} {profile.address.zipCode}</p>
                 </div>
 
                 <h3 className="info-header mx-4">EMERGENCY CONTACT</h3>
@@ -42,7 +42,7 @@ export default class PersonalInfo extends Component {
                     <p>Relationship: {profile.contact.relationship}</p>
                 </div>
 
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                 <h3 className="info-header mx-4">IDENTIFICATION</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
@@ -64,24 +64,9 @@ export default class PersonalInfo extends Component {
                 <h3 className="info-header mx-4">EDUCATION</h3>
                 <div className="mx-4 mb-5" style={{margin: "auto"}}>
                     <hr className="profile-hr"/>
-                    <table className="table" style={{width: "80%", margin: "auto"}}>
-                        <thead>
-                            <tr>
-                                <th scope="col">Course Name</th>
-                                <th scope="col">School</th>
-                                <th scope="col">Grade</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p>School: {profile.school}</p>
+                    <p>Degree: {profile.degree}</p>
+                    <p>Courses: {profile.courses}</p>
                 </div>
 
                 <h3 className="info-header mx-4">BANK INFORMATION</h3>

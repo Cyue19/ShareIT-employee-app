@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import './Card.css';
 
-import img from '../img/img1.jpeg';
-
 export default class Card extends Component {
 
+  goToProfile(id) {
+    const url = "/profile/" + id;
+    this.props.history.push(url);
+  }
+
   render() {
-    const { name, job, manager } = this.props;
+    const { employee } = this.props;
 
     return (
-      <div className="Card">
+      <div className="Card col-3 mx-4">
         <div className="upper-container" align="center">
           <div className="image-container">
-            <img src={img} alt="Employee1image" height="100px" width="100px" />
+            <img src={employee.picture} className="card-image" alt="profile" height="70px" width="70px" />
           </div>
         </div>
         <div className="lower-container" align="center">
-          <h3> {name}</h3>
-          <h4> {job}</h4>
-          <h5> {manager}</h5>
-          <button> View Profile</button>
+          <h3>{employee.firstName} {employee.lastName}</h3>
+          <h4>{employee.job}</h4>
+          <h5>{employee.manager}</h5>
+          <button className="card-button" onClick={() => this.goToProfile(employee.userId)}> View Profile</button>
         </div>
       </div>
     );

@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import ShowIf from "../../ShowIf";
 import Firebase from "../../../firebase/Firebase";
 
-export default class RequestAbsenceModal extends Component {
-
+export default class EditRequestModal extends Component {
     constructor(props) {
         super(props);
         this.db = Firebase.instance().db;
 
         this.state = {
-            type: "",
-            period: "",
-            periodUnit: "",
-            startDate: "",
-            endDate: "",
-            observations: "",
-            prevCount: 0,
+            type: props.request.type,
+            period: props.request.period,
+            periodUnit: props.request.periodUnit,
+            startDate: props.request.startDate,
+            endDate: props.request.endDate,
+            observations: props.request.observations,
+            status: props.request.status,
             error: "",
         }
     }
@@ -26,91 +24,57 @@ export default class RequestAbsenceModal extends Component {
         });
     }
 
-    /** Create a new absence request */
-    createRequest(e) {
-        const {type, period, periodUnit, startDate, endDate, observations} = this.state;
-        const {profile} = this.props;
-
-        if (!type || !period || !periodUnit ||!startDate || !endDate || !observations) {
-            this.setState({
-                error: "Please complete all fields"
-            });
-            return;
-        }
-
-        const newRequest = {id: Date.now(), type: type, period: period, periodUnit: periodUnit, startDate: startDate, endDate: endDate, observations: observations, status: "pending"};
-        profile.absenceRequests.push(newRequest);
-
-        this.props.update(profile);
-        this.sendRequestNotification();
-
-        this.restoreDefault();
-    }
-
-    /**Sends notification of absence request to manager */
-    async sendRequestNotification() {
-        try {
-            const {profile} = this.props;
-            const managerId = profile.manager.userId;
-            const message = profile.firstName + " " + profile.lastName + " has requested an absence";
-
-            const doc = await this.db.collection("profiles").doc(managerId).get();
-            const updatedNotifs = doc.data().notifications;
-            if (doc.data().newCount) {
-                const prevCount = doc.data().newCount;
-                this.setState({
-                    prevCount
-                });
-            }
-            const newCount = this.state.prevCount + 1;
-            const newNotif = {message: message, notifId: Date.now(), recipientId: profile.userId, newCount: newCount}
-            updatedNotifs.push(newNotif);
-
-            await this.db.collection("profiles").doc(managerId).update({
-                notifications: updatedNotifs,
-                newCount
-            });
-        } catch(err) {
-            console.log(err);
-        }
-    }
-
-    /**Clear modal inputs */
     restoreDefault() {
+        const {request} = this.props;
         this.setState({
-            type: "",
-            period: "",
-            periodUnit: "",
-            startDate: "",
-            endDate: "",
-            observations: "",
+            type: request.type,
+            period: request.period,
+            periodUnit: request.periodUnit,
+            startDate: request.startDate,
+            endDate: request.endDate,
+            status: request.status,
+            observations: request.observations,
             error: "",
-            isHidden: true
-        });
+        })
+    }
+
+    saveChanges(e) {
+        const {profile, request} = this.props;
+
+        request.type = this.state.type;
+        request.period = this.state.period;
+        request.periodUnit = this.state.periodUnit;
+        request.startDate = this.state.startDate;
+        request.endDate = this.state.endDate;
+        request.status = this.state.status;
+        request.observations = this.state.observations;
+
+        const updatedRequests = profile.absenceRequests.map(req => req.id !== request.id ? req : request);
+        profile.absenceRequests = updatedRequests;
+
+        this.props.onUpdate(profile);
     }
 
     render() {
-        const {type, period, periodUnit, startDate, endDate, observations, error} = this.state;
+        const { type, period, periodUnit, startDate, endDate, status, observations, error } = this.state;
 
         return (
-            <div>
-                <div className="modal fade" id="requestAbsenceModal" aria-labelledby="requestAbsenceModalLabel" aria-hidden="true">
+            <div className="modal fade" id="editRequestModal" aria-labelledby="editRequestModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="requestAbsenceModalLabel">Request Absence</h5>
+                                <h5 className="modal-title" id="editRequestModalLabel">Edit Absence</h5>
                                 <button onClick={() => this.restoreDefault()} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
-                            <ShowIf isTrue={error}>
+                            {/* <ShowIf isTrue={error}>
                                 <div className="alert alert-danger" role="alert">
                                     {error}
                                 </div>
-                            </ShowIf>
+                            </ShowIf> */}
 
                             <div className="modal-body">
                                 <form className="row">
-                                    <h2 className="info-header">Account Information</h2>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Type:</label>
                                         <select value={type} onChange={(e) => this.handleChange(e)} name="type" className="form-select">
@@ -151,6 +115,14 @@ export default class RequestAbsenceModal extends Component {
                                         <input onChange={(e) => this.handleChange(e)} type="date" name="endDate" value={endDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
+                                        <label className="form-label">Status:</label>
+                                        <select value={status} onChange={(e) => this.handleChange(e)} name="status" className="form-select">
+                                            <option value="pending">Pending</option>
+                                            <option value="success">Success</option>
+                                            <option value="canceled">Canceled</option>
+                                        </select>
+                                        </div>
+                                    <div className="col-6 mb-3">
                                         <label className="form-label">Observations:</label>
                                         <input onChange={(e) => this.handleChange(e)} type="text" name="observations" value={observations} className="form-control"/>
                                     </div>
@@ -159,12 +131,11 @@ export default class RequestAbsenceModal extends Component {
 
                             <div className="modal-footer">
                                 <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                                <button onClick={(e) => this.saveChanges(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         )
     }
 }

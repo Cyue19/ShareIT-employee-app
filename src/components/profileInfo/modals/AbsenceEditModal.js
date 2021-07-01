@@ -16,6 +16,12 @@ export default class AbsenceEditModal extends Component {
         });
     }
 
+    restoreDefault() {
+        this.setState({
+            absencesPerYr: this.props.profile.absencesPerYr
+        });
+    }
+
     saveChanges(e) {
         e.preventDefault();
 
@@ -28,7 +34,7 @@ export default class AbsenceEditModal extends Component {
     }
 
     render() {
-        const {profile} = this.props;
+        const {absencesPerYr} = this.state;
 
         return (
             <div>
@@ -37,7 +43,7 @@ export default class AbsenceEditModal extends Component {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="editAbsenceModalLabel">Request Absence</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" onClick={() => this.restoreDefault()} className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
                             <div className="modal-body">
@@ -45,13 +51,13 @@ export default class AbsenceEditModal extends Component {
                                     <h2 className="info-header">Absences</h2>
                                     <div className="col-6 mb-3">
                                         <label className="form-label">Absences per year:</label>
-                                        <input onChange={(e) => this.onAbsencesPerYrChanged(e)} type="text" defaultValue={profile.absencesPerYr} className="form-control"/>
+                                        <input onChange={(e) => this.onAbsencesPerYrChanged(e)} type="text" value={absencesPerYr} className="form-control"/>
                                     </div>
                                 </form>
                             </div>
 
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button onClick={(e) => this.saveChanges(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import ShowIf from "../ShowIf";
-import ProfessionalEditModal from "./ProfessionalEditModal";
+import ProfessionalEditModal from "./modals/ProfessionalEditModal";
 
 export default class ProfessionalInfo extends Component {
 
     render() {
-        const { profile, permissions } = this.props;
+        const { profile, self, permissions } = this.props;
 
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative", boxShadowTop: "none"}}>
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#profInfoModal">
                     Edit
                     </button>
@@ -27,18 +27,19 @@ export default class ProfessionalInfo extends Component {
                 <h3 className="info-header mx-4">COVERED HOLIDAYS</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
-                    <p>Country: </p>
-                    <p>Region: </p>
+                    <p>Country: {profile.country}</p>
+                    <p>Region: {profile.region}</p>
+                    <p>Date: {profile.holidayDate}</p>
                 </div>
 
                 <h3 className="info-header mx-4">JOB DETAILS</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
                     <p>Job: {profile.job}</p>
-                    <p>Manager: {profile.manager}</p>
+                    <p>Manager: {profile.manager.fullName}</p>
                 </div>
 
-                <ShowIf isTrue={this.props.self || permissions==="HR" || permissions ==="Admin"}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                 <h3 className="info-header mx-4">SALARY CONDITIONS</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
@@ -52,12 +53,15 @@ export default class ProfessionalInfo extends Component {
                 <h3 className="info-header mx-4">CONTRACTS</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
-                    <p>Full time, fixed term: </p>
-                    <p>Full time, unfixed Term: </p>
-                    <p>Part time, fixed term: </p>
-                    <p>Part time, unfixed term: </p>
-                    <p>Internship: </p>
-                    <p>Freelance: </p>
+                    { profile.contracts.map(contract => 
+                        <div class="card">
+                        <h5 class="card-header">{contract.title}</h5>
+                        <div class="card-body">
+                          <p class="card-text">Dates: {contract.startDate.slice(8,)}/{contract.startDate.slice(5,7)}/{contract.startDate.slice(0,4)} - {contract.endDate.slice(8,)}/{contract.endDate.slice(5,7)}/{contract.endDate.slice(0,4)}</p>
+                          <p class="card-text">Comments: {contract.comments}</p>
+                        </div>
+                      </div>
+                    )}
                 </div>
                 </ShowIf>
 

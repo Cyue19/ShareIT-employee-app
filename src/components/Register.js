@@ -79,16 +79,16 @@ export default class Register extends Component {
             return;
         }
 
-        console.log(this.state.accessEmail);
         try {
             const userCredential = await this.auth.createUserWithEmailAndPassword(this.state.accessEmail, this.state.password);
             const picUrl = await this.storage.ref().child("images/default_profile_pic.jpg").getDownloadURL();
-            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl, userCredential.user.uid, "employee", this.state.accessEmail);
-            await this.db.collection("profiles").add({
+            const profile = new Profile(this.state.firstName, this.state.lastName, picUrl, userCredential.user.uid, "Employee", this.state.accessEmail);
+            await this.db.collection("profiles").doc(profile.userId).set({
                 userId: profile.userId,
                 firstName: profile.firstName,
                 lastName: profile.lastName,
                 picture: profile.picture,
+                birthDate: profile.birthDate,
                 maritalStatus: profile.maritalStatus,
                 nationality: profile.nationality,
                 personalEmail: profile.personalEmail,
@@ -103,6 +103,9 @@ export default class Register extends Component {
                 dependents: profile.dependents,
                 handicap: profile.handicap,
                 payee: profile.payee, 
+                degree: profile.degree,
+                school: profile.school,
+                courses: profile.courses,
                 bank: profile.bank, 
                 iban: profile.iban, 
                 swift: profile.swift, 
@@ -110,7 +113,9 @@ export default class Register extends Component {
                 labelsAndTags: profile.labelsAndTags,
                 workPhone: profile.workPhone,
                 workEmail: profile.workEmail,
-                holidays: profile.holidays,
+                country: profile.country,
+                region: profile.region,
+                holidayDate: profile.holidayDate,
                 job: profile.job,
                 manager: profile.manager,
                 baseSalary: profile.baseSalary,
@@ -125,6 +130,7 @@ export default class Register extends Component {
                 status: profile.status,
                 language: profile.language,
                 absenceRequests: profile.absenceRequests,
+                notifications: profile.notifications
             });
 
             this.setState({
@@ -176,8 +182,8 @@ export default class Register extends Component {
                                 <label  className="form-label">Confirm Password</label>
                                 <input onChange={(e) => this.onConfirmPasswordChanged(e)} type="password" className="form-control"/>
                             </div>
-                            <ShowIf isTrue={this.state.error}>
-                                <div className="alert alert-danger" role="alert">
+                            <ShowIf isTrue={error}>
+                                <div class="alert alert-danger" role="alert">
                                     {error}
                                 </div>
                             </ShowIf>
