@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Main.css';
 
-import background1 from './img/bg_gradient.png';
 
 import Card from './Card';
 
@@ -35,7 +34,7 @@ export default class Main extends Component {
     console.log(users);
     return (
         //loop through the users and send 'user' information to Card component
-        <div style={{ backgroundImage: 'url(${background1})'}}>
+        <div style={{background: "linear-gradient(to left, #3c817a, #19033d)", height: '100%', display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                 <h1 className ="h3 mb-3 text-center" style={styleBackground}>Employees</h1>
 
             <div>
