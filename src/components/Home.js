@@ -21,9 +21,9 @@ export default class Home extends Component {
     render() {
         return (
             <div style={{background: "linear-gradient(to left, #3c817a, #19033d)", height: '100%', display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                <div role="main" class="inner cover p-3 text-center">
+                <div role="main" className="inner cover p-3 text-center">
                     <img src={img1} alt="Logo" style={{width: '100px'}} className="mb-3"/>
-                    <h2 class="cover-heading" style={{color: 'white'}}>Share IT Employee Managemenet System</h2>
+                    <h2 className="cover-heading" style={{color: 'white'}}>Share IT Employee Managemenet System</h2>
                     <div className="mt-3" onClick={() => this.login()}> 
                             <button className="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
                     </div>
