@@ -164,7 +164,7 @@ export default class ProfessionalEditModal extends Component {
         profile.expenses = this.state.expenses;
         profile.mealAllowance = this.state.mealAllowance;
         profile.flexibleWorkHrs = this.state.flexibleWorkHrs;
-        profile.comment = this.state.comment;
+        profile.comments = this.state.comments;
         profile.contracts = JSON.parse(JSON.stringify(this.contractsCopy));
 
         this.props.update(profile);

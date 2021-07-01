@@ -13,7 +13,6 @@ export default class Absences extends Component {
         this.db = Firebase.instance().db;
 
         this.state = {
-            currRequest: "",
             prevCount: props.profile.newCount,
         }
     }
@@ -42,12 +41,6 @@ export default class Absences extends Component {
             default:
                 break;
         }
-    }
-
-    passRequest(request) {
-        this.setState({
-            currRequest: request
-        });
     }
 
     onUpdateAbsence(profile) {
@@ -89,14 +82,14 @@ export default class Absences extends Component {
 
         return (
             <div className="form-card" style={{backgroundColor: "white", width:"100%", position: "relative"}}>
-                <ShowIf isTrue={self}>
+                <ShowIf isTrue={self || permissions==="HR" || permissions ==="Admin"}>
                     <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#requestAbsenceModal">
                     Request
                     </button>
                 </ShowIf>
 
                 <ShowIf isTrue={permissions==="HR" || permissions ==="Admin"}>
-                    <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "88%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#editAbsenceModal">
+                    <button type="button" className="btn btn-primary col-1" style={{position: "absolute", left: "79%", top: "1vh"}} data-bs-toggle="modal" data-bs-target="#editAbsenceModal">
                     Edit
                     </button>
                 </ShowIf>
@@ -127,7 +120,7 @@ export default class Absences extends Component {
                                 <td>{request.observations}</td>
                                 <td>
                                     <ShowIf isTrue={permissions==="Admin" || permissions==="HR"}>
-                                        <button onClick={() => this.passRequest(request)} style={{padding: "2px 6px"}} type="button" className="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target="#editRequestModal">
+                                        <button style={{padding: "2px 6px"}} type="button" className="btn btn-primary mx-1" data-bs-toggle="modal" data-bs-target={"#request" + request.id + "Modal"}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
                                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                             </svg>
@@ -138,6 +131,7 @@ export default class Absences extends Component {
                                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                             </svg>
                                         </button>
+                                        <EditRequestModal request={request} id={request.id} profile={this.props.profile} onUpdate={(profile) => this.onUpdateAbsence(profile)}/>
                                     </ShowIf>
                                 </td>
                             </tr>
@@ -145,7 +139,7 @@ export default class Absences extends Component {
                     </tbody>
                 </table>
 
-                <EditRequestModal request={currRequest} profile={this.props.profile} onUpdate={(profile) => this.onUpdateAbsence(profile)}/>
+                {/* <EditRequestModal request={currRequest} profile={this.props.profile} onUpdate={(profile) => this.onUpdateAbsence(profile)}/> */}
                 <AbsenceEditModal profile={profile} update={(profile) => this.props.update(profile)} />
                 <RequestAbsenceModal profile={profile} update={(profile) => this.props.update(profile)} />
             </div>

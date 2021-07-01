@@ -5,7 +5,7 @@ export default class EditRequestModal extends Component {
     constructor(props) {
         super(props);
         this.db = Firebase.instance().db;
-
+        console.log(props.request);
         this.state = {
             type: props.request.type,
             period: props.request.period,
@@ -34,8 +34,9 @@ export default class EditRequestModal extends Component {
             endDate: request.endDate,
             status: request.status,
             observations: request.observations,
+            success: "",
             error: "",
-        })
+        });
     }
 
     saveChanges(e) {
@@ -57,13 +58,14 @@ export default class EditRequestModal extends Component {
 
     render() {
         const { type, period, periodUnit, startDate, endDate, status, observations, error } = this.state;
+        const {id} = this.props;
 
         return (
-            <div className="modal fade" id="editRequestModal" aria-labelledby="editRequestModalLabel" aria-hidden="true">
+            <div className="modal fade" id={"request" + id + "Modal"} aria-labelledby={"request" + id + "ModalLabel"} aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered modal-lg">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="editRequestModalLabel">Edit Absence</h5>
+                                <h5 className="modal-title" id={"request" + id + "ModalLabel"}>Edit Absence</h5>
                                 <button onClick={() => this.restoreDefault()} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 

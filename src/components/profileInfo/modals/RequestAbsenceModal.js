@@ -16,6 +16,7 @@ export default class RequestAbsenceModal extends Component {
             endDate: "",
             observations: "",
             prevCount: 0,
+            success: "",
             error: "",
         }
     }
@@ -40,6 +41,9 @@ export default class RequestAbsenceModal extends Component {
 
         const newRequest = {id: Date.now(), type: type, period: period, periodUnit: periodUnit, startDate: startDate, endDate: endDate, observations: observations, status: "pending"};
         profile.absenceRequests.push(newRequest);
+        this.setState({
+            success: "You have successfully created an absence request"
+        })
 
         this.props.update(profile);
         this.sendRequestNotification();
@@ -90,7 +94,7 @@ export default class RequestAbsenceModal extends Component {
     }
 
     render() {
-        const {type, period, periodUnit, startDate, endDate, observations, error} = this.state;
+        const {type, period, periodUnit, startDate, endDate, observations, success, error} = this.state;
 
         return (
             <div>
@@ -105,6 +109,12 @@ export default class RequestAbsenceModal extends Component {
                             <ShowIf isTrue={error}>
                                 <div className="alert alert-danger" role="alert">
                                     {error}
+                                </div>
+                            </ShowIf>
+
+                            <ShowIf isTrue={success}>
+                                <div className="alert alert-success" role="alert">
+                                    {success}
                                 </div>
                             </ShowIf>
 
@@ -159,7 +169,7 @@ export default class RequestAbsenceModal extends Component {
 
                             <div className="modal-footer">
                                 <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
