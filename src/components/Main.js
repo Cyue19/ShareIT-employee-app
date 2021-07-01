@@ -90,7 +90,7 @@ export default class Main extends Component {
                     )}
                 </div>
             }
-            <p style={{position: "absolute", bottom: ".5%"}} className="mt-5 mb-3 text-muted">Copyright © 2011-2021, Share IT and its related companies. All rights reserved.</p>
+            <p style={{position: "absolute", bottom: "0%"}} className="mt-5 mb-3 text-muted">Copyright © 2011-2021, Share IT and its related companies. All rights reserved.</p>
         </div>
     );
   }
