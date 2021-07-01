@@ -90,7 +90,7 @@ export default class AccountEditModal extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                <button onCLick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button onClick={(e) => this.saveChanges(e)} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>
