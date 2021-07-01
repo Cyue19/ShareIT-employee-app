@@ -21,7 +21,7 @@ export default class PersonalInfo extends Component {
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
                     <p><b>Full name:</b> {profile.firstName} {profile.lastName}</p>
-                    <p><b>Birth date:</b> {profile.birthDate} </p>
+                    <p><b>Birth date:</b> {profile.birthDate.slice(8,)}/{profile.birthDate.slice(5,7)}/{profile.birthDate.slice(0,4)}</p>
                     <p><b>Marital status:</b> {profile.maritalStatus}</p>
                     <p><b>Nationality:</b> {profile.nationality}</p>
                 </div>

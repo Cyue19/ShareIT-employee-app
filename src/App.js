@@ -13,6 +13,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import GuardedRouteUser from './components/GuardedRouteUser';
 import GuardedRouteNonUser from './components/GuardedRouteNonUser';
+import PropsRoute from "./components/PropsRoute";
 import Firebase from './firebase/Firebase';
 import Main from './components/Main';
 import ProfilePage from './components/ProfilePage';
