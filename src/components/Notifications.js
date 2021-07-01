@@ -23,8 +23,8 @@ export default class Notifications extends Component {
         }
     }
 
-    viewUserProfile(recipientId) {
-        const url = "/profile/" + recipientId;
+    viewUserProfile(Id) {
+        const url = "/profile/" + Id;
         this.props.history.push(url);
     }
 

@@ -48,6 +48,7 @@ export default class Profile {
         this.status = "";
         this.language = "";
         this.notifications = [];
+        this.newCount = 0;
     }
 
     static fromFirebaseDoc(doc) {

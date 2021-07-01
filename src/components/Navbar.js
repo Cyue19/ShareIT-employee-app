@@ -12,8 +12,10 @@ class Navbar extends Component {
         this.state={
             user: props.user,
             click: false,
-            number: 0 
+            number: JSON.parse(JSON.stringify(props.new))
         }
+        console.log("prop", props.new);
+        console.log("state", this.state.number)
     }
 
     async logout() {

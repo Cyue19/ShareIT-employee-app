@@ -13,7 +13,8 @@ export default class Absences extends Component {
         this.db = Firebase.instance().db;
 
         this.state = {
-            currRequest: ""
+            currRequest: "",
+            prevCount: props.profile.newCount,
         }
     }
 
@@ -65,10 +66,18 @@ export default class Absences extends Component {
     async sendEditNotifications(message) {
         const {profile} = this.props;
         const updatedNotifs = profile.notifications;
+
+        if(!profile.newCount) {
+            this.setState({
+                prevCount: 0
+            });
+        }
+        const newCount = this.state.prevCount + 1;
         updatedNotifs.push({message: message, notifId: Date.now(), recipientId: profile.userId});
         
         await this.db.collection("profiles").doc(profile.userId).update({
             notifications: updatedNotifs,
+            newCount
         });
 
         this.setState({});

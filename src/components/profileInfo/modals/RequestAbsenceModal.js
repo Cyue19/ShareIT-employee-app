@@ -15,6 +15,7 @@ export default class RequestAbsenceModal extends Component {
             startDate: "",
             endDate: "",
             observations: "",
+            prevCount: 0,
             error: "",
         }
     }
@@ -52,13 +53,22 @@ export default class RequestAbsenceModal extends Component {
             const {profile} = this.props;
             const managerId = profile.manager.userId;
             const message = profile.firstName + " " + profile.lastName + " has requested an absence";
-            const newNotif = {message: message, notifId: Date.now(), recipientId: profile.userId}
+
             const doc = await this.db.collection("profiles").doc(managerId).get();
             const updatedNotifs = doc.data().notifications;
+            if (doc.data().newCount) {
+                const prevCount = doc.data().newCount;
+                this.setState({
+                    prevCount
+                });
+            }
+            const newCount = this.state.prevCount + 1;
+            const newNotif = {message: message, notifId: Date.now(), recipientId: profile.userId, newCount: newCount}
             updatedNotifs.push(newNotif);
 
             await this.db.collection("profiles").doc(managerId).update({
                 notifications: updatedNotifs,
+                newCount
             });
         } catch(err) {
             console.log(err);

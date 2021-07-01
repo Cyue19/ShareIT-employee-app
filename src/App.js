@@ -29,7 +29,8 @@ class App extends Component {
     this.state={
       user: null,
       loading: true,
-      permissions: ""
+      permissions: "",
+      newNotifs: 0
     }
   }
 
@@ -43,7 +44,23 @@ class App extends Component {
         user,
         loading: false
       });
+
+      if (this.state.user) {
+        this.getMyNotifs(this.state.user.uid);
+      }
     });
+  }
+
+  async getMyNotifs(id) {
+    try {
+      const doc = await this.db.collection("profiles").doc(id).get();
+      this.setState({
+        newNotifs: doc.data().newCount
+      });
+      console.log(this.state.newNotifs);
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   render() {
@@ -55,7 +72,8 @@ class App extends Component {
             <div></div>
           :
           <BrowserRouter>
-            <Navbar user={user}/>
+            {console.log("state", this.state.newNotifs)}
+            <Navbar new={this.state.newNotifs} user={user}/>
             <GuardedRouteNonUser path='/login' exact component={Login} user={user}/>
             <GuardedRouteNonUser path="/register" exact component={Register} user={user}/>
             <GuardedRouteNonUser path="/" exact component={Home} user={user}/>
