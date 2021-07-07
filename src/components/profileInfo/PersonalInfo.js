@@ -20,10 +20,10 @@ export default class PersonalInfo extends Component {
                 <h3 className="info-header mx-4 col">IDENTITY</h3>
                 <div className="mx-4 mb-5">
                     <hr className="profile-hr"/>
-                    <p><b>Full name:</b> {profile.firstName} {profile.lastName}</p>
-                    <p><b>Birth date:</b> {profile.birthDate} </p>
-                    <p><b>Marital status:</b> {profile.maritalStatus}</p>
-                    <p><b>Nationality:</b> {profile.nationality}</p>
+                    <p>Full name: {profile.firstName} {profile.lastName}</p>
+                    <p>Birth date: {profile.birthDate ? <span>{profile.birthDate.slice(8,)}/{profile.birthDate.slice(5,7)}/{profile.birthDate.slice(0,4)}</span> : ""}</p>
+                    <p>Marital status: {profile.maritalStatus}</p>
+                    <p>Nationality: {profile.nationality}</p>
                 </div>
 
                 <h3 className="info-header mx-4">PERSONAL CONTACT INFORMATION</h3>
@@ -31,7 +31,7 @@ export default class PersonalInfo extends Component {
                     <hr className="profile-hr"/>
                     <p>Personal email: {profile.personalEmail}</p>
                     <p>Personal phone: {profile.personalPhone}</p>
-                    <p>Address: {profile.address.line1} {profile.address.line2} {profile.address.city}, {profile.address.country} {profile.address.zipCode}</p>
+                    <p>Address: {profile.address ? <span>{profile.address.line1} {profile.address.line2} {profile.address.city}, {profile.address.country} {profile.address.zipCode}</span> : ""}</p>
                 </div>
 
                 <h3 className="info-header mx-4">EMERGENCY CONTACT</h3>

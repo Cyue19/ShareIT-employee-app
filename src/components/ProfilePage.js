@@ -79,6 +79,11 @@ export default class ProfilePage extends Component {
             profile.language = doc.data().language;
             
             const permissions = await this.fetchUserPermissions();
+
+            //if the profile being viewed is inactive and the user is only an employee redirect the page
+            if (profile.status === "Inactive" && permissions === "Employee") {
+                this.props.history.push("/main");
+            }
             
             this.setState({
                 profile,
@@ -91,12 +96,14 @@ export default class ProfilePage extends Component {
         }
     }
 
+    /**Get the user's permissions level */
     async fetchUserPermissions() {
         const snapShot = await this.db.collection("profiles").where("userId", "==", this.props.user.uid).get();
         const doc = snapShot.docs[0];
         return doc.data().permissions;
     }
 
+    /**Save changes to profile object to firebase document */
     async updateProfile(profile) {
         try {
             await this.db.collection("profiles").doc(profile.userId).update({
@@ -180,6 +187,7 @@ export default class ProfilePage extends Component {
         })
     }
 
+    /**Display different tab information according to the tab variable */
     changeTab(tab) {
         this.setState({
             tab

@@ -58,6 +58,7 @@ export default class Register extends Component {
         });
     }
 
+    /**Create a user through firebase auth, create profile object, save to firestore */
     async createUserAndProfile() {
         const {firstName, lastName, password, confirmPassword, accessEmail } = this.state;
 
@@ -163,23 +164,23 @@ export default class Register extends Component {
                         <form className="row">
                             <h2 className="unbold mb-3">Account Information</h2>
                             <div className="col-6 mb-3">
-                                <label className="form-label">First Name</label>
+                                <label className="form-label">First Name<span style={{color: "red"}}>*</span></label>
                                 <input onChange={(e) => this.onFirstNameChanged(e)} type="text" className="form-control"/>
                             </div>
                             <div className="col-6 mb-3">
-                                <label className="form-label">Last Name</label>
+                                <label className="form-label">Last Name<span style={{color: "red"}}>*</span></label>
                                 <input onChange={(e) => this.onLastNameChanged(e)} type="text" className="form-control"/>
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Email address</label>
+                                <label className="form-label">Email address<span style={{color: "red"}}>*</span></label>
                                 <input onChange={(e) => this.onEmailChanged(e)} type="email" className="form-control"/>
                             </div>
                             <div className="mb-3">
-                                <label  className="form-label">Password</label>
+                                <label  className="form-label">Password<span style={{color: "red"}}>*</span></label>
                                 <input onChange={(e) => this.onPasswordChanged(e)} type="password" className="form-control"/>
                             </div>
                             <div className="mb-3">
-                                <label  className="form-label">Confirm Password</label>
+                                <label  className="form-label">Confirm Password<span style={{color: "red"}}>*</span></label>
                                 <input onChange={(e) => this.onConfirmPasswordChanged(e)} type="password" className="form-control"/>
                             </div>
                             <ShowIf isTrue={error}>

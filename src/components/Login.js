@@ -30,9 +30,8 @@ export default class Login extends Component {
         e.preventDefault();
         try {
             const { email, password } = this.state; 
-            const user = await this.auth.signInWithEmailAndPassword(email, password);
-            const userId = user.user.uid; 
-            const url = '/profile/' + userId;
+            const user = await this.auth.signInWithEmailAndPassword(email, password); 
+            const url = "/main";
             this.props.history.push(url);
         } catch (err) {
             alert(err);

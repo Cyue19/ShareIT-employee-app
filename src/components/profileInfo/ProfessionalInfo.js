@@ -29,7 +29,7 @@ export default class ProfessionalInfo extends Component {
                     <hr className="profile-hr"/>
                     <p>Country: {profile.country}</p>
                     <p>Region: {profile.region}</p>
-                    <p>Date: {profile.holidayDate}</p>
+                    <p>Date: {profile.holidayDate.slice(8,)}/{profile.holidayDate.slice(5,7)}/{profile.holidayDate.slice(0,4)}</p>
                 </div>
 
                 <h3 className="info-header mx-4">JOB DETAILS</h3>

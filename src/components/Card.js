@@ -12,7 +12,7 @@ export default class Card extends Component {
     const { employee } = this.props;
 
     return (
-      <div className="Card col-3 mx-4">
+      <div className="Card col-3 mx-3">
         <div className="upper-container" align="center">
           <div className="image-container">
             <img src={employee.picture} className="card-image" alt="profile" height="70px" width="70px" />

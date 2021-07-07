@@ -16,6 +16,7 @@ export default class RequestAbsenceModal extends Component {
             endDate: "",
             observations: "",
             prevCount: 0,
+            success: "",
             error: "",
         }
     }
@@ -40,6 +41,9 @@ export default class RequestAbsenceModal extends Component {
 
         const newRequest = {id: Date.now(), type: type, period: period, periodUnit: periodUnit, startDate: startDate, endDate: endDate, observations: observations, status: "pending"};
         profile.absenceRequests.push(newRequest);
+        this.setState({
+            success: "You have successfully created an absence request"
+        })
 
         this.props.update(profile);
         this.sendRequestNotification();
@@ -90,7 +94,7 @@ export default class RequestAbsenceModal extends Component {
     }
 
     render() {
-        const {type, period, periodUnit, startDate, endDate, observations, error} = this.state;
+        const {type, period, periodUnit, startDate, endDate, observations, success, error} = this.state;
 
         return (
             <div>
@@ -108,11 +112,17 @@ export default class RequestAbsenceModal extends Component {
                                 </div>
                             </ShowIf>
 
+                            <ShowIf isTrue={success}>
+                                <div className="alert alert-success" role="alert">
+                                    {success}
+                                </div>
+                            </ShowIf>
+
                             <div className="modal-body">
                                 <form className="row">
                                     <h2 className="info-header">Account Information</h2>
                                     <div className="col-6 mb-3">
-                                        <label className="form-label">Type:</label>
+                                        <label className="form-label">Type: <span style={{color: "red"}}>*</span></label>
                                         <select value={type} onChange={(e) => this.handleChange(e)} name="type" className="form-select">
                                             <option value="">Choose...</option>
                                             <option value="Vacation">Vacation</option>
@@ -128,7 +138,7 @@ export default class RequestAbsenceModal extends Component {
                                         </select>
                                     </div>
                                     <div className="col-6 row mb-3">
-                                        <label className="form-label">Period:</label>
+                                        <label className="form-label">Period: <span style={{color: "red"}}>*</span></label>
 
                                         <div className="col-6 pe-0">
                                         <input onChange={(e) => this.handleChange(e)} type="number" name="period" value={period} className="form-control"/>
@@ -143,15 +153,15 @@ export default class RequestAbsenceModal extends Component {
                                         </div>
                                     </div>
                                     <div className="col-6 mb-3">
-                                        <label className="form-label">Start date:</label>
+                                        <label className="form-label">Start date: <span style={{color: "red"}}>*</span></label>
                                         <input onChange={(e) => this.handleChange(e)} type="date" name="startDate" value={startDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
-                                        <label className="form-label">End date:</label>
+                                        <label className="form-label">End date: <span style={{color: "red"}}>*</span></label>
                                         <input onChange={(e) => this.handleChange(e)} type="date" name="endDate" value={endDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
-                                        <label className="form-label">Observations:</label>
+                                        <label className="form-label">Observations: <span style={{color: "red"}}>*</span></label>
                                         <input onChange={(e) => this.handleChange(e)} type="text" name="observations" value={observations} className="form-control"/>
                                     </div>
                                 </form>
@@ -159,7 +169,7 @@ export default class RequestAbsenceModal extends Component {
 
                             <div className="modal-footer">
                                 <button onClick={() => this.restoreDefault()} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                                <button onClick={() => this.createRequest()} type="button" className="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
