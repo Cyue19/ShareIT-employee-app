@@ -18,6 +18,7 @@ export default class PersonalEditModal extends Component {
             line2: props.profile.address.line2,
             zipCode: props.profile.address.zipCode,
             city: props.profile.address.city,
+            region: props.profile.address.region,
             country: props.profile.address.country,
             contactFirstName: props.profile.contact.firstName,
             contactLastName: props.profile.contact.lastName,
@@ -95,6 +96,7 @@ export default class PersonalEditModal extends Component {
         this.props.profile.address.line2 = this.state.line2;
         this.props.profile.address.zipCode = this.state.zipCode;
         this.props.profile.address.city = this.state.city;
+        this.props.profile.address.region = this.state.region;
         this.props.profile.address.country = this.state.country;
         this.props.profile.contact.firstName = this.state.contactFirstName;
         this.props.profile.contact.lastName = this.state.contactLastName;
@@ -119,7 +121,7 @@ export default class PersonalEditModal extends Component {
     }
     
     render() {
-        const { firstName, lastName, birthDate, maritalStatus, nationality, personalEmail, personalPhone, line1, line2, zipCode, city, country, contactFirstName, contactLastName, contactPhone, 
+        const { firstName, lastName, birthDate, maritalStatus, nationality, personalEmail, personalPhone, line1, line2, zipCode, city, region, country, contactFirstName, contactLastName, contactPhone, 
         contactRelationship, idNum, taxId, ssn, licenseNum, carPlateNum, dependents, handicap, payee, school, degree, courses, bank, iban, swift} = this.state;
         return (
             <div>
@@ -181,15 +183,28 @@ export default class PersonalEditModal extends Component {
                                         <label className="form-label">Address line 2:</label>
                                         <input type="text" onChange={(e) => this.onChange(e)} name="line2" value={line2} className="form-control"/>
                                     </div>
-                                    <div className="col-4 mb-3">
+                                    <div className="col-3 mb-3">
                                         <label className="form-label">City:</label>
                                         <input type="text" onChange={(e) => this.onChange(e)} name="city" value={city} className="form-control"/>
                                     </div>
-                                    <div className="col-4 mb-3">
+                                    <div className="col-3 mb-3">
+                                        <label className="form-label">Region:</label>
+                                        <select value={region} onChange={(e) => this.onChange(e)} name="region" className="form-select">
+                                            <option value="">Choose...</option>
+                                            <option value="Algarve">Algarve</option>
+                                            <option value="Alentejo">Alentejo</option>
+                                            <option value="Lisbon">Lisbon</option>
+                                            <option value="Beiras">Beiras</option>
+                                            <option value="North">North</option>
+                                            <option value="Azores">Azores</option>
+                                            <option value="Madeira">Madeira</option>
+                                        </select>
+                                    </div>
+                                    <div className="col-3 mb-3">
                                         <label className="form-label">Zip code:</label>
                                         <input type="text" onChange={(e) => this.onChange(e)} name="zipCode" value={zipCode} className="form-control"/>
                                     </div>
-                                    <div className="col-4 mb-3">
+                                    <div className="col-3 mb-3">
                                         <label className="form-label">Country:</label>
                                         <input type="text" onChange={(e) => this.onChange(e)} name="country" value={country} className="form-control"/>
                                     </div>
@@ -211,10 +226,10 @@ export default class PersonalEditModal extends Component {
                                         <label className="form-label">Relationship:</label>
                                         <select value={contactRelationship} onChange={(e) => this.onChange(e)} name="contactRelationship" className="form-select">
                                             <option value="">Choose...</option>
-                                            <option value="parent">Parent</option>
-                                            <option value="guardian">Guardian</option>
-                                            <option value="spouse">Spouse</option>
-                                            <option value="other">Other</option>
+                                            <option value="Parent">Parent</option>
+                                            <option value="Guardian">Guardian</option>
+                                            <option value="Spouse">Spouse</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                     </div>
 

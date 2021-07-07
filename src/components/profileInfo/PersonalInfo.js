@@ -31,7 +31,7 @@ export default class PersonalInfo extends Component {
                     <hr className="profile-hr"/>
                     <p>Personal email: {profile.personalEmail}</p>
                     <p>Personal phone: {profile.personalPhone}</p>
-                    <p>Address: {profile.address ? <span>{profile.address.line1} {profile.address.line2} {profile.address.city}, {profile.address.country} {profile.address.zipCode}</span> : ""}</p>
+                    <p>Address: {profile.address ? <span>{profile.address.line1} {profile.address.line2} {profile.address.city}, {profile.address.region} {profile.address.country} {profile.address.zipCode}</span> : ""}</p>
                 </div>
 
                 <h3 className="info-header mx-4">EMERGENCY CONTACT</h3>
