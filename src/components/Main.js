@@ -5,7 +5,6 @@ import './Main.css';
 import Card from './Card';
 import Firebase from "../firebase/Firebase";
 import PropsRoute from "./PropsRoute";
-import ShowIf from "./ShowIf";
 
 export default class Main extends Component {
 
@@ -21,6 +20,7 @@ export default class Main extends Component {
         };
     }
 
+    /**Get all users from firebase and pull certain information */
     async componentDidMount() {
         try {
             const snapShot = await this.db.collection("profiles").get();
@@ -35,12 +35,14 @@ export default class Main extends Component {
         }
     }
 
+    /**On change handler for the search bar */
     onSearchChanged(e) {
         this.setState({
             search: e.target.value,
         });
     }
 
+    /**Look through all users and find those that match the search bar input */
     onSearch() {
         const {search, users} = this.state;
         const matches = [];

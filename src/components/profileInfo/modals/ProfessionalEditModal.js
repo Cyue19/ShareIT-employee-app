@@ -42,7 +42,7 @@ export default class ProfessionalEditModal extends Component {
         });
     }
 
-    /**Find manager's user id from name */
+    /**Find manager's user id from his/her name */
     async findManager() {
         try {
             if (this.state.managerName.length===0) {
@@ -92,10 +92,12 @@ export default class ProfessionalEditModal extends Component {
         contract.isEditing = !contract.isEditing;
 
         if (!contract.isEditing) {
+            //if the button is clicked to start editing do  this
             contract = {id: contract.id, title: this.state.editTitle, startDate: this.state.editStartDate, endDate: this.state.editEndDate, comments: this.state.editComments};
             const updatedContracts = this.contractsCopy.map(x => (x.id === contract.id) ? contract : x);
             this.contractsCopy = updatedContracts;
         } else {
+            //if the button is clicked to end editing display the proper values
             this.setState({
                 editTitle: contract.title,
                 editStartDate: contract.startDate,

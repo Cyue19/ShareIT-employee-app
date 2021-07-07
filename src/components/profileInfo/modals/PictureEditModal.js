@@ -16,6 +16,7 @@ export default class PictureEditModal extends Component {
         }
     }
 
+    /**Store the selected image and get an url to display in preview */
     onImageSelected(e) {
         const file = e.target.files[0];
         this.setState({
@@ -34,6 +35,7 @@ export default class PictureEditModal extends Component {
         }
     }
 
+    /**Upload image to firebase storage */
     uploadImage(e) {
         e.preventDefault();
         const { file } = this.state;
@@ -59,6 +61,7 @@ export default class PictureEditModal extends Component {
         }
     }
 
+    /**Get the image's download url from firebase */
     async onFileUploaded(uploadTask) {
         const imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
         console.log("uploaded image url", imageUrl);

@@ -23,6 +23,7 @@ export default class Notifications extends Component {
         }
     }
 
+    /**Redirect to profile page */
     viewUserProfile(Id) {
         const url = "/profile/" + Id;
         this.props.history.push(url);
@@ -48,12 +49,12 @@ export default class Notifications extends Component {
 
         return (
             <div style={{height: "100%", position: "relative"}}>
-            <div className="container mb-3" style={{position: "absolute", left: "15%", width: "70%"}}>
+            <div className="container mb-3" style={{position: "absolute", left: "10%", width: "80%"}}>
                 <h2>My Notifications:</h2>
                 <div className="card mb-3" style={{background: "linear-gradient(to bottom left, #3c817a, #19033d)"}}>
                     <div className="card-body" style={{padding: "20px 30px"}}>
                     { notifications.reverse().map(notif =>
-                        <div className="card my-2">
+                        <div className="card my-2" style={{width:"90%", margin: "auto"}}>
                             <div className="card-body" style={{paddingBottom: "0px"}}>
                                 <div className="row">
                                     <div className="col-10">

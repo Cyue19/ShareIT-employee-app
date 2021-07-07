@@ -122,7 +122,7 @@ export default class RequestAbsenceModal extends Component {
                                 <form className="row">
                                     <h2 className="info-header">Account Information</h2>
                                     <div className="col-6 mb-3">
-                                        <label className="form-label">Type:</label>
+                                        <label className="form-label">Type: <span style={{color: "red"}}>*</span></label>
                                         <select value={type} onChange={(e) => this.handleChange(e)} name="type" className="form-select">
                                             <option value="">Choose...</option>
                                             <option value="Vacation">Vacation</option>
@@ -138,7 +138,7 @@ export default class RequestAbsenceModal extends Component {
                                         </select>
                                     </div>
                                     <div className="col-6 row mb-3">
-                                        <label className="form-label">Period:</label>
+                                        <label className="form-label">Period: <span style={{color: "red"}}>*</span></label>
 
                                         <div className="col-6 pe-0">
                                         <input onChange={(e) => this.handleChange(e)} type="number" name="period" value={period} className="form-control"/>
@@ -153,15 +153,15 @@ export default class RequestAbsenceModal extends Component {
                                         </div>
                                     </div>
                                     <div className="col-6 mb-3">
-                                        <label className="form-label">Start date:</label>
+                                        <label className="form-label">Start date: <span style={{color: "red"}}>*</span></label>
                                         <input onChange={(e) => this.handleChange(e)} type="date" name="startDate" value={startDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
-                                        <label className="form-label">End date:</label>
+                                        <label className="form-label">End date: <span style={{color: "red"}}>*</span></label>
                                         <input onChange={(e) => this.handleChange(e)} type="date" name="endDate" value={endDate} className="form-control"/>
                                     </div>
                                     <div className="col-6 mb-3">
-                                        <label className="form-label">Observations:</label>
+                                        <label className="form-label">Observations: <span style={{color: "red"}}>*</span></label>
                                         <input onChange={(e) => this.handleChange(e)} type="text" name="observations" value={observations} className="form-control"/>
                                     </div>
                                 </form>
